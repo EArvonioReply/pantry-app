@@ -1,0 +1,20 @@
+PODS:
+  - MVVMKit (3.1.0)
+  - SnapKit (5.6.0)
+
+DEPENDENCIES:
+  - MVVMKit
+  - SnapKit (~> 5.6.0)
+
+SPEC REPOS:
+  trunk:
+    - MVVMKit
+    - SnapKit
+
+SPEC CHECKSUMS:
+  MVVMKit: ce6af30918dc3239b647e8d4573f57f9809087c5
+  SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+
+PODFILE CHECKSUM: 9798f4cc43b94c911447dcd2d75f9f1b0519ce29
+
+COCOAPODS: 1.12.1

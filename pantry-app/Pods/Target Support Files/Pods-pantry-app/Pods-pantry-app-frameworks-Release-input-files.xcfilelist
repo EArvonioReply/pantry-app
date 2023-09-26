@@ -1,0 +1,3 @@
+${PODS_ROOT}/Target Support Files/Pods-pantry-app/Pods-pantry-app-frameworks.sh
+${BUILT_PRODUCTS_DIR}/MVVMKit/MVVMKit.framework
+${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework
