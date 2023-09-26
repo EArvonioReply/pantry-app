@@ -5,7 +5,7 @@
 //  Created by Marco Agizza on 26/09/23.
 //
 
-import UIKit
+import MVVMKit
 
 class PantryViewControllerViewModel {
     var ingredients: [Ingredient] = []
@@ -15,11 +15,7 @@ class PantryViewControllerViewModel {
     }
     
     func loadData() {
-        let debugIngredientsNames = ["pane", "pomodoro", "patata", "banana", "mela", "aglio", "olio", "lattuga"]
-        debugIngredientsNames.forEach { name in
-            let ingredient = Ingredient(name: name, quantity: 2, unitOfMeasure: .kilograms, expiringDate: Date())
-            ingredients.append(ingredient)
-        }
+        ingredients = Ingredient.getMockArray()
     }
     
     func getIngredient(at position: Int) -> Ingredient {

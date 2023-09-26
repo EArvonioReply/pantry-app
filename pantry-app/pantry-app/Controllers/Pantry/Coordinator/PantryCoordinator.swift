@@ -34,8 +34,15 @@ final class PantryCoordinator: NavigationCoordinator {
 // MARK: - PantryViewControllerDelegate
 
 extension PantryCoordinator: PantryViewControllerDelegate {
-    func pantryViewControllerrDidPush(_ viewController: UIViewController) {
-        let coordinator = BaseCoordinator(navigationController: navigationController)
+    func pantryViewControllerDidPresent(_ viewController: UIViewController) {
+        print("present request")
+        let coordinator = BaseCoordinator(navigationController: navigationController, viewController: viewController)
+        present(child: coordinator)
+    }
+    
+    func pantryViewControllerDidPush(_ viewController: UIViewController) {
+        print("push request")
+        let coordinator = BaseCoordinator(navigationController: navigationController, viewController: viewController)
         push(child: coordinator)
     }
     

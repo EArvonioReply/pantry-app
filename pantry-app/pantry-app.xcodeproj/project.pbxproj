@@ -23,6 +23,12 @@
 		52D7824C2AC2C9A400926A13 /* Pods_pantry_app.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 52D7824A2AC2C9A400926A13 /* Pods_pantry_app.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		52D7824F2AC2CE3F00926A13 /* PantryViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D7824E2AC2CE3F00926A13 /* PantryViewControllerViewModel.swift */; };
 		52D782512AC2D35A00926A13 /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D782502AC2D35A00926A13 /* Ingredient.swift */; };
+		52D782592AC2E3FC00926A13 /* IngredientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D782582AC2E3FC00926A13 /* IngredientViewController.swift */; };
+		52D7825B2AC2E44800926A13 /* IngredientViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D7825A2AC2E44800926A13 /* IngredientViewControllerViewModel.swift */; };
+		52D7825D2AC2E49500926A13 /* IngredientCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D7825C2AC2E49500926A13 /* IngredientCoordinator.swift */; };
+		52D782622AC3366500926A13 /* IngredientCreationViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D782612AC3366500926A13 /* IngredientCreationViewControllerViewModel.swift */; };
+		52D782642AC3368500926A13 /* IngredientCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D782632AC3368500926A13 /* IngredientCreationViewController.swift */; };
+		52D782662AC336AB00926A13 /* IngredientCreationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D782652AC336AB00926A13 /* IngredientCreationCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -62,6 +68,12 @@
 		52D7824A2AC2C9A400926A13 /* Pods_pantry_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_pantry_app.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		52D7824E2AC2CE3F00926A13 /* PantryViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PantryViewControllerViewModel.swift; sourceTree = "<group>"; };
 		52D782502AC2D35A00926A13 /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
+		52D782582AC2E3FC00926A13 /* IngredientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientViewController.swift; sourceTree = "<group>"; };
+		52D7825A2AC2E44800926A13 /* IngredientViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientViewControllerViewModel.swift; sourceTree = "<group>"; };
+		52D7825C2AC2E49500926A13 /* IngredientCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientCoordinator.swift; sourceTree = "<group>"; };
+		52D782612AC3366500926A13 /* IngredientCreationViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientCreationViewControllerViewModel.swift; sourceTree = "<group>"; };
+		52D782632AC3368500926A13 /* IngredientCreationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientCreationViewController.swift; sourceTree = "<group>"; };
+		52D782652AC336AB00926A13 /* IngredientCreationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientCreationCoordinator.swift; sourceTree = "<group>"; };
 		CA39F48E0D661E1E083EF84A /* Pods_pantry_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pantry_app.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBB1DB2F2E2D36899D04700D /* Pods-pantry-app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pantry-app.debug.xcconfig"; path = "Target Support Files/Pods-pantry-app/Pods-pantry-app.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -101,7 +113,7 @@
 			children = (
 				52D782392AC1F0E700926A13 /* Pushed */,
 				52D782252AC1DA2C00926A13 /* Models */,
-				52D782292AC1DB4400926A13 /* ViewsControllers */,
+				52D782292AC1DB4400926A13 /* Controllers */,
 				52D7822A2AC1DB5200926A13 /* Coordinator */,
 				52D782282AC1DA6C00926A13 /* Supporting */,
 			);
@@ -129,15 +141,14 @@
 			path = Supporting;
 			sourceTree = "<group>";
 		};
-		52D782292AC1DB4400926A13 /* ViewsControllers */ = {
+		52D782292AC1DB4400926A13 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				52D7824E2AC2CE3F00926A13 /* PantryViewControllerViewModel.swift */,
-				52D782352AC1ED9500926A13 /* PantryCoordinator.swift */,
-				52D782152AC1CF4D00926A13 /* PantryViewController.swift */,
-				52D7822C2AC1DBBF00926A13 /* Cells */,
+				52D782522AC2E2F600926A13 /* Pantry */,
+				52D7825E2AC2EE2F00926A13 /* IngredientCreation */,
+				52D782552AC2E35700926A13 /* Ingredient */,
 			);
-			path = ViewsControllers;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		52D7822A2AC1DB5200926A13 /* Coordinator */ = {
@@ -164,6 +175,85 @@
 				52D7823A2AC1F0F600926A13 /* BaseCoordinator.swift */,
 			);
 			path = Pushed;
+			sourceTree = "<group>";
+		};
+		52D782522AC2E2F600926A13 /* Pantry */ = {
+			isa = PBXGroup;
+			children = (
+				52D782532AC2E30B00926A13 /* Coordinator */,
+				52D782542AC2E31E00926A13 /* ViewControllers */,
+			);
+			path = Pantry;
+			sourceTree = "<group>";
+		};
+		52D782532AC2E30B00926A13 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				52D782352AC1ED9500926A13 /* PantryCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		52D782542AC2E31E00926A13 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				52D782152AC1CF4D00926A13 /* PantryViewController.swift */,
+				52D7824E2AC2CE3F00926A13 /* PantryViewControllerViewModel.swift */,
+				52D7822C2AC1DBBF00926A13 /* Cells */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		52D782552AC2E35700926A13 /* Ingredient */ = {
+			isa = PBXGroup;
+			children = (
+				52D782562AC2E37E00926A13 /* Coordinator */,
+				52D782572AC2E38B00926A13 /* ViewControllers */,
+			);
+			path = Ingredient;
+			sourceTree = "<group>";
+		};
+		52D782562AC2E37E00926A13 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				52D7825C2AC2E49500926A13 /* IngredientCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		52D782572AC2E38B00926A13 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				52D782582AC2E3FC00926A13 /* IngredientViewController.swift */,
+				52D7825A2AC2E44800926A13 /* IngredientViewControllerViewModel.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		52D7825E2AC2EE2F00926A13 /* IngredientCreation */ = {
+			isa = PBXGroup;
+			children = (
+				52D7825F2AC3360E00926A13 /* Coordinator */,
+				52D782602AC3361800926A13 /* ViewControllers */,
+			);
+			path = IngredientCreation;
+			sourceTree = "<group>";
+		};
+		52D7825F2AC3360E00926A13 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				52D782652AC336AB00926A13 /* IngredientCreationCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		52D782602AC3361800926A13 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				52D782632AC3368500926A13 /* IngredientCreationViewController.swift */,
+				52D782612AC3366500926A13 /* IngredientCreationViewControllerViewModel.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		8032A69BB388DAC6476B72F3 /* Frameworks */ = {
@@ -305,6 +395,8 @@
 			files = (
 				52D7824F2AC2CE3F00926A13 /* PantryViewControllerViewModel.swift in Sources */,
 				52D782322AC1ECC400926A13 /* AppCoordinator.swift in Sources */,
+				52D7825B2AC2E44800926A13 /* IngredientViewControllerViewModel.swift in Sources */,
+				52D782622AC3366500926A13 /* IngredientCreationViewControllerViewModel.swift in Sources */,
 				52D782162AC1CF4D00926A13 /* PantryViewController.swift in Sources */,
 				52D782122AC1CF4D00926A13 /* AppDelegate.swift in Sources */,
 				52D782342AC1ED3400926A13 /* AppRootCoordinator.swift in Sources */,
@@ -314,6 +406,10 @@
 				52D782512AC2D35A00926A13 /* Ingredient.swift in Sources */,
 				52D7823B2AC1F0F600926A13 /* BaseCoordinator.swift in Sources */,
 				52D7822E2AC1DBFB00926A13 /* PantryCollectionViewCell.swift in Sources */,
+				52D7825D2AC2E49500926A13 /* IngredientCoordinator.swift in Sources */,
+				52D782662AC336AB00926A13 /* IngredientCreationCoordinator.swift in Sources */,
+				52D782642AC3368500926A13 /* IngredientCreationViewController.swift in Sources */,
+				52D782592AC2E3FC00926A13 /* IngredientViewController.swift in Sources */,
 				52D782142AC1CF4D00926A13 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

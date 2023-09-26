@@ -29,5 +29,14 @@ struct Ingredient: Identifiable {
         self.unitOfMeasure = unitOfMeasure
         self.expiringDate = expiringDate
     }
-    
+}
+
+extension Ingredient {
+    public static func getMockArray() -> [Ingredient] {
+        return [
+            Ingredient(name: "Mozzarella", quantity: 1.2, unitOfMeasure: .kilograms, expiringDate: Date()),
+            Ingredient(name: "Olio", quantity: 0.5, unitOfMeasure: .litres, expiringDate: Date()),
+            Ingredient(name: "Basilico", quantity: 8, unitOfMeasure: .pieces, expiringDate: Date())
+        ]
+    }
 }
