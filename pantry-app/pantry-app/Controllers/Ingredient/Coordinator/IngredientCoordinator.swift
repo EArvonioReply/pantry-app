@@ -17,10 +17,11 @@ final class IngredientCoordinator: NavigationCoordinator {
     
     // MARK: - Init Method
     
-    init(viewModel: IngredientViewControllerViewModel) {
+    init(ingredient: Ingredient, navigationController: UINavigationController) {
+        let viewModel = IngredientViewControllerViewModel(ingredient: ingredient)
         let viewController = IngredientViewController(viewModel: viewModel)
-        self.navigationController = UINavigationController(rootViewController: viewController)
-        self.viewController = self.navigationController
+        self.navigationController = navigationController
+        self.viewController = viewController
         
         viewController.delegate = self
     }

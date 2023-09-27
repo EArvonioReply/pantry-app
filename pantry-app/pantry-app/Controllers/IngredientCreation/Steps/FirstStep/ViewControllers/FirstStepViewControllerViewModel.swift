@@ -1,13 +1,13 @@
 //
-//  IngredientCreationViewControllerViewModel.swift
+//  FirstStepViewControllerViewModel.swift
 //  pantry-app
 //
-//  Created by Marco Agizza on 26/09/23.
+//  Created by utente on 27/09/23.
 //
 
 import UIKit
 
-class IngredientCreationViewControllerViewModel {
+class FirstStepViewControllerViewModel {
     var ingredient: Ingredient
     
     init(ingredient: Ingredient) {

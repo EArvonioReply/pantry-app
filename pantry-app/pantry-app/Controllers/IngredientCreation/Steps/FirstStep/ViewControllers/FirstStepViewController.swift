@@ -1,5 +1,5 @@
 //
-//  IngredientCreationViewController.swift
+//  FirstStepViewController.swift
 //  pantry-app
 //
 //  Created by Marco Agizza on 26/09/23.
@@ -7,23 +7,23 @@
 
 import UIKit
 
-// MARK: - IngredientCreationViewControllerDelegate
+// MARK: - FirstStepViewControllerDelegate
 
-protocol IngredientCreationViewControllerDelegate: AnyObject {
-    func ingredientCreationViewController(_ viewController: UIViewController, didCreate ingredient: Ingredient)
+protocol FirstStepViewControllerDelegate: AnyObject {
+    func firstStepViewController(_ viewController: UIViewController, didCreate ingredient: Ingredient)
 }
 
-// MARK: - IngredientCreationViewController
+// MARK: - FirstStepViewController
 
-class IngredientCreationViewController: UIViewController {
+class FirstStepViewController: UIViewController {
     
     // MARK: - Public Properties
     
-    weak var delegate: IngredientCreationViewControllerDelegate?
+    weak var delegate: FirstStepViewControllerDelegate?
     
     // MARK: - Private Properties
     
-    private var viewModel: IngredientCreationViewControllerViewModel
+    private var viewModel: FirstStepViewControllerViewModel
     
     // MARK: - UI Components
     
@@ -69,7 +69,7 @@ class IngredientCreationViewController: UIViewController {
     
     // MARK: - IngredientCreationViewController Init Methods
     
-    init(viewModel: IngredientCreationViewControllerViewModel) {
+    init(viewModel: FirstStepViewControllerViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -118,12 +118,11 @@ class IngredientCreationViewController: UIViewController {
     }
     
     @objc func doneButtonTapped() {
-        delegate?.ingredientCreationViewController(self, didCreate: viewModel.ingredient)
         view.endEditing(true)
     }
 }
 
-extension IngredientCreationViewController: UITextFieldDelegate {
+extension FirstStepViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
         if textField === nameTextField {
             viewModel.ingredient.name = textField.text ?? ""

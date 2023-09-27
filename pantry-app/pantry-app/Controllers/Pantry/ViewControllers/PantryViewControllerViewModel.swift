@@ -21,4 +21,8 @@ class PantryViewControllerViewModel {
     func getIngredient(at position: Int) -> Ingredient {
         return ingredients[position]
     }
+    
+    func add(new ingredient: Ingredient) {
+        ingredients.append(ingredient)
+    }
 }

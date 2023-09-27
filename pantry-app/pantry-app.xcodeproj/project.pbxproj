@@ -29,6 +29,10 @@
 		52D782622AC3366500926A13 /* IngredientCreationViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D782612AC3366500926A13 /* IngredientCreationViewControllerViewModel.swift */; };
 		52D782642AC3368500926A13 /* IngredientCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D782632AC3368500926A13 /* IngredientCreationViewController.swift */; };
 		52D782662AC336AB00926A13 /* IngredientCreationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D782652AC336AB00926A13 /* IngredientCreationCoordinator.swift */; };
+		D97DFD4F2AC48840003292D4 /* FirstStepCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97DFD4E2AC48840003292D4 /* FirstStepCoordinator.swift */; };
+		D97DFD512AC4884C003292D4 /* FirstStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97DFD502AC4884C003292D4 /* FirstStepViewController.swift */; };
+		D97DFD532AC48854003292D4 /* FirstStepViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97DFD522AC48854003292D4 /* FirstStepViewControllerViewModel.swift */; };
+		D97DFD572AC48C59003292D4 /* SecondStepCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97DFD562AC48C59003292D4 /* SecondStepCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -75,6 +79,10 @@
 		52D782632AC3368500926A13 /* IngredientCreationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientCreationViewController.swift; sourceTree = "<group>"; };
 		52D782652AC336AB00926A13 /* IngredientCreationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientCreationCoordinator.swift; sourceTree = "<group>"; };
 		CA39F48E0D661E1E083EF84A /* Pods_pantry_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pantry_app.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D97DFD4E2AC48840003292D4 /* FirstStepCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstStepCoordinator.swift; sourceTree = "<group>"; };
+		D97DFD502AC4884C003292D4 /* FirstStepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstStepViewController.swift; sourceTree = "<group>"; };
+		D97DFD522AC48854003292D4 /* FirstStepViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstStepViewControllerViewModel.swift; sourceTree = "<group>"; };
+		D97DFD562AC48C59003292D4 /* SecondStepCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondStepCoordinator.swift; sourceTree = "<group>"; };
 		EBB1DB2F2E2D36899D04700D /* Pods-pantry-app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pantry-app.debug.xcconfig"; path = "Target Support Files/Pods-pantry-app/Pods-pantry-app.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -233,6 +241,7 @@
 		52D7825E2AC2EE2F00926A13 /* IngredientCreation */ = {
 			isa = PBXGroup;
 			children = (
+				D97DFD4A2AC48816003292D4 /* Steps */,
 				52D7825F2AC3360E00926A13 /* Coordinator */,
 				52D782602AC3361800926A13 /* ViewControllers */,
 			);
@@ -276,6 +285,57 @@
 				37D4221A27750E018DE76011 /* Pods-pantry-app.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		D97DFD4A2AC48816003292D4 /* Steps */ = {
+			isa = PBXGroup;
+			children = (
+				D97DFD542AC48C3C003292D4 /* SecondStep */,
+				D97DFD4B2AC48821003292D4 /* FirstStep */,
+			);
+			path = Steps;
+			sourceTree = "<group>";
+		};
+		D97DFD4B2AC48821003292D4 /* FirstStep */ = {
+			isa = PBXGroup;
+			children = (
+				D97DFD4D2AC48830003292D4 /* ViewControllers */,
+				D97DFD4C2AC4882B003292D4 /* Coordinator */,
+			);
+			path = FirstStep;
+			sourceTree = "<group>";
+		};
+		D97DFD4C2AC4882B003292D4 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				D97DFD4E2AC48840003292D4 /* FirstStepCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		D97DFD4D2AC48830003292D4 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				D97DFD502AC4884C003292D4 /* FirstStepViewController.swift */,
+				D97DFD522AC48854003292D4 /* FirstStepViewControllerViewModel.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		D97DFD542AC48C3C003292D4 /* SecondStep */ = {
+			isa = PBXGroup;
+			children = (
+				D97DFD552AC48C41003292D4 /* Coordinator */,
+			);
+			path = SecondStep;
+			sourceTree = "<group>";
+		};
+		D97DFD552AC48C41003292D4 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				D97DFD562AC48C59003292D4 /* SecondStepCoordinator.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -397,6 +457,7 @@
 				52D782322AC1ECC400926A13 /* AppCoordinator.swift in Sources */,
 				52D7825B2AC2E44800926A13 /* IngredientViewControllerViewModel.swift in Sources */,
 				52D782622AC3366500926A13 /* IngredientCreationViewControllerViewModel.swift in Sources */,
+				D97DFD4F2AC48840003292D4 /* FirstStepCoordinator.swift in Sources */,
 				52D782162AC1CF4D00926A13 /* PantryViewController.swift in Sources */,
 				52D782122AC1CF4D00926A13 /* AppDelegate.swift in Sources */,
 				52D782342AC1ED3400926A13 /* AppRootCoordinator.swift in Sources */,
@@ -404,10 +465,13 @@
 				52D782362AC1ED9500926A13 /* PantryCoordinator.swift in Sources */,
 				52D782302AC1EC9000926A13 /* Coordinator.swift in Sources */,
 				52D782512AC2D35A00926A13 /* Ingredient.swift in Sources */,
+				D97DFD532AC48854003292D4 /* FirstStepViewControllerViewModel.swift in Sources */,
 				52D7823B2AC1F0F600926A13 /* BaseCoordinator.swift in Sources */,
 				52D7822E2AC1DBFB00926A13 /* PantryCollectionViewCell.swift in Sources */,
 				52D7825D2AC2E49500926A13 /* IngredientCoordinator.swift in Sources */,
+				D97DFD512AC4884C003292D4 /* FirstStepViewController.swift in Sources */,
 				52D782662AC336AB00926A13 /* IngredientCreationCoordinator.swift in Sources */,
+				D97DFD572AC48C59003292D4 /* SecondStepCoordinator.swift in Sources */,
 				52D782642AC3368500926A13 /* IngredientCreationViewController.swift in Sources */,
 				52D782592AC2E3FC00926A13 /* IngredientViewController.swift in Sources */,
 				52D782142AC1CF4D00926A13 /* SceneDelegate.swift in Sources */,

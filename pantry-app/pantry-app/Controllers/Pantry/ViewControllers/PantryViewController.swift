@@ -66,6 +66,11 @@ class PantryViewController: UIViewController {
         
         
     }
+    
+    func add(new ingredient: Ingredient) {
+        viewModel.add(new: ingredient)
+        ingredientsCollectionView.reloadData()
+    }
 
     private func setupUI() {
         view.addSubview(ingredientsCollectionView)

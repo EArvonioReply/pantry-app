@@ -75,7 +75,6 @@ class IngredientViewController: UIViewController {
     
     init(viewModel: IngredientViewControllerViewModel) {
         self.viewModel = viewModel
-        
         super.init(nibName: nil, bundle: nil)
         view.backgroundColor = .white
     }
