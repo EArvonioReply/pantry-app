@@ -1,13 +1,13 @@
 //
-//  PantryCoordinator.swift
+//  IngredientCreationCoordinator.swift
 //  pantry-app
 //
-//  Created by Marco Agizza on 25/09/23.
+//  Created by Marco Agizza on 26/09/23.
 //
 
 import UIKit
 
-final class PantryCoordinator: NavigationCoordinator {
+final class IngredientCreationCoordinator: NavigationCoordinator {
     
     // MARK: - NavigationCoordinator Properties
     
@@ -17,8 +17,8 @@ final class PantryCoordinator: NavigationCoordinator {
     
     // MARK: - Init Method
     
-    init() {
-        let viewController = PantryViewController(viewModel: PantryViewControllerViewModel())
+    init(viewModel: IngredientCreationViewControllerViewModel) {
+        let viewController = IngredientCreationViewController(viewModel: viewModel)
         self.navigationController = UINavigationController(rootViewController: viewController)
         self.viewController = self.navigationController
         
@@ -33,8 +33,9 @@ final class PantryCoordinator: NavigationCoordinator {
 
 // MARK: - PantryViewControllerDelegate
 
-extension PantryCoordinator: PantryViewControllerDelegate {
-    func pantryViewControllerrDidPush(_ viewController: UIViewController) {
+extension IngredientCreationCoordinator: IngredientCreationViewControllerDelegate {
+    
+    func ingredientCreationViewControllerDidPush(_ viewController: UIViewController) {
         let coordinator = BaseCoordinator(navigationController: navigationController)
         push(child: coordinator)
     }

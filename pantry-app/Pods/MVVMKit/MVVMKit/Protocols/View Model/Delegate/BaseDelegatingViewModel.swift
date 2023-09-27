@@ -1,5 +1,5 @@
 /*
- CoordinatedViewModel.swift
+ BaseDelegatingViewModel.swift
  
  Copyright (c) 2019 Alfonso Grillo
  
@@ -20,27 +20,11 @@
  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
-*/
-
-import UIKit
+ */
 
 /**
- A protocols identifying a coordinator owner
+ The view model for a UIViewController.
+ If yor view controller manages a view owning cells (e.g. a table view) consider to use
+ `TableViewViewModel` or `CollectionViewViewModel`
  */
-public protocol CoordinatedViewModel: ViewModel {
-    associatedtype CoordinatorType: Coordinator = DefaultCoordinator
-    var coordinator: CoordinatorType { get }
-}
-
-/**
- A convenience default coordinator
- */
-public class DefaultCoordinator: Coordinator {
-    public typealias ViewController = UIViewController
-    
-    public let weakViewController: WeakReference<UIViewController>
-    
-    public init(sourceViewController: ViewController) {
-        weakViewController = .init(sourceViewController)
-    }
-}
+public protocol BaseDelegatingViewModel: DelegatingViewModel where BinderType == AnyBinder<Self> { }

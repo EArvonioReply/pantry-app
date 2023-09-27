@@ -7,11 +7,13 @@
 
 import UIKit
 import SnapKit
+import MVVMKit
 
 // MARK: - PantryViewControllerDelegate
 
 protocol PantryViewControllerDelegate: AnyObject {
-    func pantryViewControllerrDidPush(_ viewController: UIViewController)
+    func pantryViewControllerDidPush(_ ingredient: Ingredient)
+    func pantryViewControllerDidPresent()
 }
 
 // MARK: - PantryViewController
@@ -34,6 +36,7 @@ class PantryViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         viewModel.loadData()
         title = "Pantry"
+        
     }
     
     required init?(coder: NSCoder) {
@@ -48,7 +51,7 @@ class PantryViewController: UIViewController {
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(PantryCollectionViewCell.self, forCellWithReuseIdentifier: PantryCollectionViewCell.identifier)
-        
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
         return collectionView
     }()
     
@@ -60,6 +63,8 @@ class PantryViewController: UIViewController {
         
         ingredientsCollectionView.dataSource = self
         ingredientsCollectionView.delegate = self
+        
+        
     }
 
     private func setupUI() {
@@ -69,6 +74,15 @@ class PantryViewController: UIViewController {
         ingredientsCollectionView.snp.makeConstraints { make in
             make.edges.equalTo(view)
         }
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus.circle.fill"), style: .plain, target: self, action: #selector(didTapPlusButton))
+    }
+    
+    // MARK: - UI Action
+    
+    @objc private func didTapPlusButton() {
+        delegate?.pantryViewControllerDidPresent()
     }
 
 }
@@ -88,14 +102,18 @@ extension PantryViewController: UICollectionViewDelegate, UICollectionViewDataSo
         cell.configure(with: viewModel.getIngredient(at: indexPath.row).image ?? UIImage(systemName: "fork.knife.circle.fill")!)
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.pantryViewControllerDidPush(viewModel.getIngredient(at: indexPath.row))
+    }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout Extension
 
 extension PantryViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        // Size: subtract (HorizontalSpacing*Separators)/NumberOfItems: (2*1)/2
-        let size = (view.frame.width/2) - 1.5
+        // Size: subtract (HorizontalSpacing*Separators)/NumberOfItems + collection view offset: (2*1)/2
+        let size = (view.frame.width/2) - 1.5 - 8.8
         return CGSize(width: size, height: size + (size/3))
     }
     

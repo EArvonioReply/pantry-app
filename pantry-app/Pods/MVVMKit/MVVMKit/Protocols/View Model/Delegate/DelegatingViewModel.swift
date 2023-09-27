@@ -1,5 +1,5 @@
 /*
- ViewModelOwner.swift
+ DelegatingViewModel.swift
  
  Copyright (c) 2019 Alfonso Grillo
  
@@ -22,27 +22,11 @@
  THE SOFTWARE.
  */
 
-import UIKit
-
 /**
- A view model owner is also the `Binder` for the view model that it owns.
+ A special kind of view model that can own subviews view models
  */
-public protocol ViewModelOwner: CustomBinder where CustomViewModel: ReferenceViewModel {
-    /// The owned view model.
-    var viewModel: CustomViewModel? { get }
-}
-
-public extension ViewModelOwner {
-    /// `bind` a convenience methods that binds the owned view model
-    func bind() {
-        guard let viewModel = self.viewModel else { return }
-        bind(viewModel: viewModel)
-    }
-}
-
-internal extension ViewModelOwner where Self: UIViewController {
-    func bindIfViewLoaded() {
-        guard isViewLoaded else { return }
-        bind()
-    }
+public protocol DelegatingViewModel: ReferenceViewModel {
+    associatedtype BinderType: CustomBinder
+    /// The reference to the binder of the view model
+    var binder: BinderType? { get set }
 }

@@ -33,18 +33,13 @@ import Combine
  */
 @available(iOS 13.0, *)
 open class MVVMDiffableCollectionViewController<ViewModelType: DiffableCollectionViewViewModel>: UIViewController, ViewModelOwner {
-    public typealias ViewModelType = ViewModelType
+    public typealias CustomViewModel = ViewModelType
     
     @IBOutlet public weak var collectionView: UICollectionView!
-    public var viewModel: ViewModelType! {
+    public var viewModel: ViewModelType? {
         didSet { bindIfViewLoaded() }
     }
-    public private(set) var dataSource: MVVMCollectionViewDiffableDataSource<ViewModelType.SectionType>!
-    
-    /// The type of the instanciated `MVVMCollectionViewDiffableDataSource`. A custom data source can be provided overriding this property.
-    open class var dataSourceType: MVVMCollectionViewDiffableDataSource<ViewModelType.SectionType>.Type {
-        MVVMCollectionViewDiffableDataSource<ViewModelType.SectionType>.self
-    }
+    public private(set) var dataSource: UICollectionViewDiffableDataSource<ViewModelType.SectionType, ReusableViewViewModelAdapter>!
     
     private var dataSourceSubscription: AnyCancellable?
     
@@ -55,15 +50,15 @@ open class MVVMDiffableCollectionViewController<ViewModelType: DiffableCollectio
     }
     
     open func bind(viewModel: ViewModelType) {
-        dataSourceSubscription = viewModel.snapshot
+        dataSourceSubscription = viewModel.snapshotPublisher
             .receive(on: DispatchQueue.diffingQueue)
             .sink { [weak self] snapshotAdapter in
-                self?.dataSource.apply(snapshotUpdate: snapshotAdapter)
+                self?.dataSource.apply(snapshotAdapter.snapshot, animatingDifferences: snapshotAdapter.animated, completion: snapshotAdapter.completion)
             }
     }
     
     private func setupDataSource() {
-        dataSource = Self.dataSourceType.init(collectionView: collectionView) { [weak self] (collectionView, indexPath, adapter) in
+        dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView) { [weak self] (collectionView, indexPath, adapter) in
             guard let self = self else { return nil }
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: adapter.reusableViewViewModel.identifier, for: indexPath)
             self.configureDelegate(of: cell)

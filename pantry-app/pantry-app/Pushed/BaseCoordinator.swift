@@ -21,7 +21,11 @@ final class BaseCoordinator: NavigationCoordinator {
         let viewController = UIViewController()
         self.navigationController = navigationController
         self.viewController = viewController
-        viewController.view.backgroundColor = .magenta
+    }
+    
+    init(navigationController: UINavigationController, viewController: UIViewController) {
+        self.navigationController = navigationController
+        self.viewController = viewController
     }
     
     // MARK: - Coordinator Method

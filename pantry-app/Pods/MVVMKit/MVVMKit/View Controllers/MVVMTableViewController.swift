@@ -1,5 +1,5 @@
 /*
- MVVMDiffableTableViewController.swift
+ MVVMTableViewController.swift
  
  Copyright (c) 2019 Alfonso Grillo
  
@@ -22,51 +22,89 @@
  THE SOFTWARE.
  */
 
-#if canImport(Combine)
-
 import UIKit
-import Combine
 
 /**
  A convenience class for a view controller handling a UITableView.
- The class fully implements the data source of the UITableView using a UICollectionViewDiffableDataSource.
+ The class fully implements the UITableViewDataSource.
  */
-@available(iOS 13.0, *)
-open class MVVMDiffableTableViewController<ViewModelType: DiffableTableViewViewModel>: UIViewController, ViewModelOwner, UITableViewDelegate {
-    public typealias CustomViewModel = ViewModelType
+open class MVVMTableViewController<ViewModelType: TableViewViewModel>: UIViewController, TableViewViewModelOwner, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet public weak var tableView: UITableView! {
-        didSet { tableView.delegate = self }
-    }
-    public var viewModel: ViewModelType? {
-        didSet { bindIfViewLoaded() }
-    }
-    public private(set) var dataSource: UITableViewDiffableDataSource<ViewModelType.SectionType, ReusableViewViewModelAdapter>!
-    
-    private var dataSourceSubscription: AnyCancellable?
-    
-    override open func viewDidLoad() {
-        super.viewDidLoad()
-        setupDataSource()
-        bind()
-    }
-    
-    open func bind(viewModel: ViewModelType) {
-        dataSourceSubscription = viewModel.snapshotPublisher
-            .receive(on: DispatchQueue.diffingQueue)
-            .sink { [weak self] snapshotAdapter in
-                self?.dataSource.apply(snapshotAdapter.snapshot, animatingDifferences: snapshotAdapter.animated, completion: snapshotAdapter.completion)
-            }
-    }
-    
-    private func setupDataSource() {
-        dataSource = UITableViewDiffableDataSource(tableView: tableView) { [weak self] (collectionView, indexPath, adapter) -> UITableViewCell? in
-            guard let self = self else { return nil }
-            let cell = collectionView.dequeueReusableCell(withIdentifier: adapter.reusableViewViewModel.identifier, for: indexPath)
-            self.configureDelegate(of: cell)
-            self.configure(view: cell, with: adapter.reusableViewViewModel)
-            return cell
+        didSet {
+            tableView.dataSource = self
+            tableView.delegate = self
         }
+    }
+    
+    // MARK: - CustomViewModelConfigurable
+    
+    public typealias CustomViewModel = ViewModelType
+    
+    /// Override this method to bind your view model to the view
+    open func bind(viewModel: ViewModelType) {
+        
+    }
+    
+    /**
+     The view controller view model
+     */
+    open var viewModel: ViewModelType? {
+        /*
+            The cast isn't really needed here, but for some reason the compiler won't build without it.
+            This issue doesn't seem to affect subclasses.
+         */
+        didSet { viewModel?.binder = AnyTableViewBinder<ViewModelType>(self) as? ViewModelType.BinderType }
+    }
+    
+    // MARK: - UITableViewDataSource
+    
+    public final func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
+    }
+    
+    public final func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return sections[section].count
+    }
+    
+    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let viewModel = sections[indexPath.section][indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: viewModel.identifier, for: indexPath)
+        configureDelegate(of: cell)
+        configure(view: cell, with: viewModel)
+        return cell
+    }
+    
+    open func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return nil
+    }
+    
+    open func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        return nil
+    }
+    
+    open func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
+    open func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
+    open func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        return nil
+    }
+    
+    open func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+        return 0
+    }
+    
+    open func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+    }
+    
+    open func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        
     }
     
     // MARK: - UITableViewDelegate
@@ -126,9 +164,8 @@ open class MVVMDiffableTableViewController<ViewModelType: DiffableTableViewViewM
     // Section header & footer information
     
     open func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let sectionInstance = self.dataSource.snapshot().sectionIdentifiers[section]
         guard
-            let headerViewModel = viewModel?.headerViewModel(for: sectionInstance, at: section),
+            let headerViewModel = sections[section].headerViewModel,
             let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerViewModel.identifier)
             else { return nil }
         
@@ -138,9 +175,8 @@ open class MVVMDiffableTableViewController<ViewModelType: DiffableTableViewViewM
     }
     
     open func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let sectionInstance = self.dataSource.snapshot().sectionIdentifiers[section]
         guard
-            let footerViewModel = viewModel?.footerViewModel(for: sectionInstance, at: section),
+            let footerViewModel = sections[section].footerViewModel,
             let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: footerViewModel.identifier)
             else { return nil }
         
@@ -187,10 +223,12 @@ open class MVVMDiffableTableViewController<ViewModelType: DiffableTableViewViewM
     
     // MARK: - Swipe Actions
     
+    @available(iOS 11.0, *)
     open func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         return nil
     }
     
+    @available(iOS 11.0, *)
     open func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         return nil
     }
@@ -264,4 +302,8 @@ open class MVVMDiffableTableViewController<ViewModelType: DiffableTableViewViewM
     }
 }
 
-#endif
+private extension MVVMTableViewController {
+    private var sections: [SectionViewModel] {
+        return viewModel?.sections ?? []
+    }
+}
