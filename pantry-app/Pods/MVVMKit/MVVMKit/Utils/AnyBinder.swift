@@ -1,5 +1,5 @@
 /*
- ViewModelOwner.swift
+ AnyBinder.swift
  
  Copyright (c) 2019 Alfonso Grillo
  
@@ -22,27 +22,34 @@
  THE SOFTWARE.
  */
 
-import UIKit
-
-/**
- A view model owner is also the `Binder` for the view model that it owns.
- */
-public protocol ViewModelOwner: CustomBinder where CustomViewModel: ReferenceViewModel {
-    /// The owned view model.
-    var viewModel: CustomViewModel? { get }
+private class AnyBinderBase<V: ViewModel>: CustomBinder {
+    func bind(viewModel: V) { }
 }
 
-public extension ViewModelOwner {
-    /// `bind` a convenience methods that binds the owned view model
-    func bind() {
-        guard let viewModel = self.viewModel else { return }
-        bind(viewModel: viewModel)
+private final class AnyBinderBox<B: CustomBinder>: AnyBinderBase<B.CustomViewModel> {
+    weak var base: B?
+    
+    init(_ base: B) {
+        self.base = base
+    }
+    
+    override func bind(viewModel: B.CustomViewModel) {
+        base?.bind(viewModel: viewModel)
     }
 }
 
-internal extension ViewModelOwner where Self: UIViewController {
-    func bindIfViewLoaded() {
-        guard isViewLoaded else { return }
-        bind()
+/**
+ The type erasure of `CustomBinder`.
+ - Attention: To avoid memory leak `AnyBinder` has a weak reference to the embedded `CustomBinder`
+ */
+public final class AnyBinder<V: ViewModel>: CustomBinder {
+    private let box: AnyBinderBase<V>
+    
+    public init<B: CustomBinder>(_ binder: B) where B.CustomViewModel == V {
+        box = AnyBinderBox(binder)
+    }
+    
+    public func bind(viewModel: V) {
+        box.bind(viewModel: viewModel)
     }
 }

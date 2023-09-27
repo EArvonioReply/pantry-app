@@ -35,13 +35,12 @@ final class PantryCoordinator: NavigationCoordinator {
 
 extension PantryCoordinator: PantryViewControllerDelegate {
     func pantryViewControllerDidPresent(_ viewController: UIViewController) {
-        print("present request")
+        //viewController.modalPresentationStyle = .fullScreen
         let coordinator = BaseCoordinator(navigationController: navigationController, viewController: viewController)
         present(child: coordinator)
     }
     
     func pantryViewControllerDidPush(_ viewController: UIViewController) {
-        print("push request")
         let coordinator = BaseCoordinator(navigationController: navigationController, viewController: viewController)
         push(child: coordinator)
     }

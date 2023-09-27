@@ -1,5 +1,5 @@
 /*
- SnapshotUpdate.swift
+ SectionViewModel.swift
  
  Copyright (c) 2019 Alfonso Grillo
  
@@ -22,32 +22,39 @@
  THE SOFTWARE.
  */
 
-import UIKit
-
 /**
- A container for a NSDiffableDataSourceSnapshot.
- This container describe if the diffing of a snapshot should be animated and provides a diffing completion.
+ The view model for a section of a UITableView or UICollectionView
  */
-@available(iOS 13.0, *)
-public struct SnapshotUpdate<SectionType: Hashable, ItemType: Hashable> {
-    public let snapshot: NSDiffableDataSourceSnapshot<SectionType, ItemType>
-    public let animated: Bool
-    public let completion: (() -> Void)?
+public struct SectionViewModel: ViewModel, ExpressibleByArrayLiteral {
+    public var cellViewModels: [ReusableViewViewModel]
+    public var headerViewModel: ReusableViewViewModel?
+    public var footerViewModel: ReusableViewViewModel?
     
     public init(
-        snapshot: NSDiffableDataSourceSnapshot<SectionType, ItemType> = .init(),
-        animated: Bool = true,
-        completion: (() -> Void)? = nil) {
-        
-        self.snapshot = snapshot
-        self.animated = animated
-        self.completion = completion
+        cellViewModels: [ReusableViewViewModel],
+        headerViewModel: ReusableViewViewModel? = nil,
+        footerViewModel: ReusableViewViewModel? = nil
+    ) {
+        self.cellViewModels = cellViewModels
+        self.headerViewModel = headerViewModel
+        self.footerViewModel = footerViewModel
+    }
+    
+    // ExpressibleByArrayLiteral conformance
+    public typealias ArrayLiteralElement = ReusableViewViewModel
+    
+    public init(arrayLiteral elements: ReusableViewViewModel...) {
+        self.init(cellViewModels: elements)
     }
 }
 
-@available(iOS 13.0, *)
-public extension NSDiffableDataSourceSnapshot {
-    func adapted(animated: Bool = true, completion: (() -> Void)? = nil) -> SnapshotUpdate<SectionIdentifierType, ItemIdentifierType> {
-        .init(snapshot: self, animated: animated, completion: completion)
+public extension SectionViewModel {
+    var count: Int {
+        return cellViewModels.count
+    }
+    
+    subscript (_ index: Int) -> ReusableViewViewModel {
+        get { return cellViewModels[index] }
+        set { cellViewModels[index] = newValue }
     }
 }

@@ -16,7 +16,7 @@ protocol IngredientViewControllerDelegate: AnyObject {
 // MARK: - IngredientViewController
 
 class IngredientViewController: UIViewController {
-
+    
     // MARK: - Public Properties
     
     weak var delegate: IngredientViewControllerDelegate?
@@ -25,12 +25,59 @@ class IngredientViewController: UIViewController {
     
     private var viewModel: IngredientViewControllerViewModel
     
+    // MARK: - UI Components
+    
+    private let mainVerticalStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        
+        return stackView
+    }()
+    
+    private let ingredientImage: UIImageView = {
+        let ingredientImage = UIImageView()
+        ingredientImage.image = UIImage(systemName: "fork.knife.circle.fill")
+        ingredientImage.contentMode = .scaleAspectFit
+        return ingredientImage
+    }()
+    
+    private let horizontalStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        return stackView
+    }()
+    
+    private let nameLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        return label
+    }()
+    
+    private let quantityLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        return label
+    }()
+    
+    private let expiringDateLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 16, weight: .thin)
+        label.textColor = .secondaryLabel
+        label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        return label
+    }()
+    
     // MARK: - IngredientViewController Init Methods
     
     init(viewModel: IngredientViewControllerViewModel) {
         self.viewModel = viewModel
         
         super.init(nibName: nil, bundle: nil)
+        view.backgroundColor = .white
     }
     
     required init?(coder: NSCoder) {
@@ -41,9 +88,37 @@ class IngredientViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .blue
-        print("Sto visualizzato l'ingrediente \(viewModel.name)")
-        // Do any additional setup after loading the view.
+        setupUI()
+        
     }
-
+    
+    private func setupUI() {
+        nameLabel.text = viewModel.name
+        quantityLabel.text = "\(viewModel.quantity) \(viewModel.unitOfMeasure)"
+        expiringDateLabel.text = "Expiring date is \(viewModel.getFormattedDate())"
+        ingredientImage.image = viewModel.image
+        ingredientImage.snp.makeConstraints { make in
+            make.height.equalTo(view.frame.width - 20)
+        }
+        
+        view.addSubview(mainVerticalStackView)
+        mainVerticalStackView.addArrangedSubview(ingredientImage)
+        mainVerticalStackView.addArrangedSubview(horizontalStackView)
+        mainVerticalStackView.snp.makeConstraints { make in
+            make.top.equalTo(view).offset(90)
+            make.bottom.equalTo(view)
+            make.right.equalTo(view).offset(-20)
+            make.left.equalTo(view).offset(20)
+        }
+        
+        horizontalStackView.addArrangedSubview(nameLabel)
+        horizontalStackView.addArrangedSubview(quantityLabel)
+        
+        mainVerticalStackView.addSubview(horizontalStackView)
+        mainVerticalStackView.addArrangedSubview(expiringDateLabel)
+        mainVerticalStackView.addArrangedSubview(UIView())
+        
+        
+    }
+    
 }

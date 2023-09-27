@@ -11,7 +11,6 @@ import MVVMKit
 
 // MARK: - PantryViewControllerDelegate
 
-@objc
 protocol PantryViewControllerDelegate: AnyObject {
     func pantryViewControllerDidPush(_ viewController: UIViewController)
     func pantryViewControllerDidPresent(_ viewController: UIViewController)
@@ -106,7 +105,6 @@ extension PantryViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Ingredient at \(indexPath.row + 1) is tapped")
         let ingredientViewModel = IngredientViewControllerViewModel(ingredient: viewModel.getIngredient(at: indexPath.row))
         let ingredientViewController = IngredientViewController(viewModel: ingredientViewModel)
         delegate?.pantryViewControllerDidPush(ingredientViewController)

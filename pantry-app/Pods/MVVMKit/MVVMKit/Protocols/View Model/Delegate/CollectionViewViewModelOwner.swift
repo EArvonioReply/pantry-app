@@ -1,5 +1,5 @@
 /*
- ViewModelOwner.swift
+ CollectionViewViewModelOwner.swift
  
  Copyright (c) 2019 Alfonso Grillo
  
@@ -25,24 +25,9 @@
 import UIKit
 
 /**
- A view model owner is also the `Binder` for the view model that it owns.
+ A protocol describing the requirements of the owner of a collection view.
+ Tipically the `CollectionViewViewModelOwner` is a `UIViewController`
  */
-public protocol ViewModelOwner: CustomBinder where CustomViewModel: ReferenceViewModel {
-    /// The owned view model.
-    var viewModel: CustomViewModel? { get }
-}
-
-public extension ViewModelOwner {
-    /// `bind` a convenience methods that binds the owned view model
-    func bind() {
-        guard let viewModel = self.viewModel else { return }
-        bind(viewModel: viewModel)
-    }
-}
-
-internal extension ViewModelOwner where Self: UIViewController {
-    func bindIfViewLoaded() {
-        guard isViewLoaded else { return }
-        bind()
-    }
+public protocol CollectionViewViewModelOwner: ViewModelOwner, CollectionViewBinder {
+    var collectionView: UICollectionView! { get }
 }
