@@ -34,13 +34,17 @@ final class PantryCoordinator: NavigationCoordinator {
 // MARK: - PantryViewControllerDelegate
 
 extension PantryCoordinator: PantryViewControllerDelegate {
-    func pantryViewControllerDidPresent(_ viewController: UIViewController) {
+    func pantryViewControllerDidPresent() {
         //viewController.modalPresentationStyle = .fullScreen
+        let ingredientCreationViewModel = IngredientCreationViewControllerViewModel()
+        let viewController = IngredientCreationViewController(viewModel: ingredientCreationViewModel)
         let coordinator = BaseCoordinator(navigationController: navigationController, viewController: viewController)
         present(child: coordinator)
     }
     
-    func pantryViewControllerDidPush(_ viewController: UIViewController) {
+    func pantryViewControllerDidPush(_ ingredient: Ingredient) {
+        let ingredientViewModel = IngredientViewControllerViewModel(ingredient: ingredient)
+        let viewController = IngredientViewController(viewModel: ingredientViewModel)
         let coordinator = BaseCoordinator(navigationController: navigationController, viewController: viewController)
         push(child: coordinator)
     }

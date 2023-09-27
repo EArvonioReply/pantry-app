@@ -12,8 +12,8 @@ import MVVMKit
 // MARK: - PantryViewControllerDelegate
 
 protocol PantryViewControllerDelegate: AnyObject {
-    func pantryViewControllerDidPush(_ viewController: UIViewController)
-    func pantryViewControllerDidPresent(_ viewController: UIViewController)
+    func pantryViewControllerDidPush(_ ingredient: Ingredient)
+    func pantryViewControllerDidPresent()
 }
 
 // MARK: - PantryViewController
@@ -82,8 +82,7 @@ class PantryViewController: UIViewController {
     // MARK: - UI Action
     
     @objc private func didTapPlusButton() {
-        let viewModel = IngredientCreationViewControllerViewModel()
-        delegate?.pantryViewControllerDidPresent(IngredientCreationViewController(viewModel: viewModel))
+        delegate?.pantryViewControllerDidPresent()
     }
 
 }
@@ -105,9 +104,7 @@ extension PantryViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let ingredientViewModel = IngredientViewControllerViewModel(ingredient: viewModel.getIngredient(at: indexPath.row))
-        let ingredientViewController = IngredientViewController(viewModel: ingredientViewModel)
-        delegate?.pantryViewControllerDidPush(ingredientViewController)
+        delegate?.pantryViewControllerDidPush(viewModel.getIngredient(at: indexPath.row))
     }
 }
 
@@ -115,7 +112,7 @@ extension PantryViewController: UICollectionViewDelegate, UICollectionViewDataSo
 
 extension PantryViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        // Size: subtract (HorizontalSpacing*Separators)/NumberOfItems: (2*1)/2
+        // Size: subtract (HorizontalSpacing*Separators)/NumberOfItems + collection view offset: (2*1)/2
         let size = (view.frame.width/2) - 1.5 - 8.8
         return CGSize(width: size, height: size + (size/3))
     }
