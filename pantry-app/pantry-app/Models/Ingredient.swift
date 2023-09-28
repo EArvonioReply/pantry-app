@@ -29,6 +29,20 @@ struct Ingredient: Identifiable {
         self.unitOfMeasure = unitOfMeasure
         self.expiringDate = expiringDate
     }
+    
+    init(name: String, quantity: Double, expiringDate: Date) {
+        self.name = name
+        self.quantity = quantity
+        self.unitOfMeasure = .pieces
+        self.expiringDate = expiringDate
+    }
+    
+    init() {
+        self.name = ""
+        self.quantity = 0
+        self.unitOfMeasure = .kilograms
+        self.expiringDate = Date()
+    }
 }
 
 extension Ingredient {

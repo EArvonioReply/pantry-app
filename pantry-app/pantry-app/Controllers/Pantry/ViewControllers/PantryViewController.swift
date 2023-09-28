@@ -64,13 +64,10 @@ class PantryViewController: UIViewController {
         ingredientsCollectionView.dataSource = self
         ingredientsCollectionView.delegate = self
         
-        
     }
 
     private func setupUI() {
         view.addSubview(ingredientsCollectionView)
-        
-        ingredientsCollectionView.backgroundColor = .systemPurple
         ingredientsCollectionView.snp.makeConstraints { make in
             make.edges.equalTo(view)
         }
@@ -83,6 +80,11 @@ class PantryViewController: UIViewController {
     
     @objc private func didTapPlusButton() {
         delegate?.pantryViewControllerDidPresent()
+    }
+    
+    func add(new ingredient: Ingredient) {
+        viewModel.add(new: ingredient)
+        ingredientsCollectionView.reloadData()
     }
 
 }

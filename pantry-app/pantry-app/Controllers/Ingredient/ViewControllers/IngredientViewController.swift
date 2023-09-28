@@ -114,7 +114,6 @@ class IngredientViewController: UIViewController {
         horizontalStackView.addArrangedSubview(nameLabel)
         horizontalStackView.addArrangedSubview(quantityLabel)
         
-        mainVerticalStackView.addSubview(horizontalStackView)
         mainVerticalStackView.addArrangedSubview(expiringDateLabel)
         mainVerticalStackView.addArrangedSubview(UIView())
         

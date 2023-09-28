@@ -7,6 +7,27 @@
 
 import UIKit
 
+// MARK: - Creation Steps Enumeration
+
+enum Step {
+    case second, creation, cancellation
+}
+
+// MARK: - StepCoordinatorDelegate
+
+protocol StepCoordinatorDelegate: AnyObject {
+    func update(ingredient: Ingredient?, andMoveTo step: Step)
+}
+
+// MARK: - IngredientCreationCoordinatorDelegate
+
+protocol IngredientCreationCoordinatorDelegate: AnyObject {
+    func ingredientCreationCoordinator(_ coordinator: IngredientCreationCoordinator, didCreate ingredient: Ingredient)
+    func cancelIngredientCreation(_ coordinator: IngredientCreationCoordinator)
+}
+
+// MARK: - IngredientCreationCoordinator
+
 final class IngredientCreationCoordinator: NavigationCoordinator {
     
     // MARK: - NavigationCoordinator Properties
@@ -15,14 +36,21 @@ final class IngredientCreationCoordinator: NavigationCoordinator {
     var viewController: UIViewController
     var childrenCoordinators: [Coordinator] = []
     
+    weak var delegate: IngredientCreationCoordinatorDelegate?
+    
+    private var ingredient: Ingredient?
+    
     // MARK: - Init Method
     
-    init(viewModel: IngredientCreationViewControllerViewModel) {
-        let viewController = IngredientCreationViewController(viewModel: viewModel)
-        self.navigationController = UINavigationController(rootViewController: viewController)
-        self.viewController = self.navigationController
+    init() {
+        navigationController = UINavigationController()
+        viewController = self.navigationController
+        viewController.modalPresentationStyle = .fullScreen
+        let firstStepCoordinator = FirstStepCoordinator(navigationController: navigationController)
+        navigationController.viewControllers = [firstStepCoordinator.viewController]
+        childrenCoordinators.append(firstStepCoordinator)
         
-        viewController.delegate = self
+        firstStepCoordinator.delegate = self
     }
     
     // MARK: - Coordinator Method
@@ -31,14 +59,20 @@ final class IngredientCreationCoordinator: NavigationCoordinator {
     
 }
 
-// MARK: - PantryViewControllerDelegate
+// MARK: - StepCoordinatorDelegate Extension
 
-extension IngredientCreationCoordinator: IngredientCreationViewControllerDelegate {
-    
-    func ingredientCreationViewControllerDidPush(_ viewController: UIViewController) {
-        let coordinator = BaseCoordinator(navigationController: navigationController)
-        push(child: coordinator)
+extension IngredientCreationCoordinator: StepCoordinatorDelegate {
+    func update(ingredient: Ingredient?, andMoveTo step: Step) {
+        self.ingredient = ingredient
+        switch step {
+        case .second:
+            let coordinator = SecondStepCoordinator(navigationController: navigationController, ingredient: ingredient!)
+            coordinator.delegate = self
+            push(child: coordinator)
+        case .creation:
+            delegate?.ingredientCreationCoordinator(self, didCreate: ingredient!)
+        case .cancellation:
+            delegate?.cancelIngredientCreation(self)
+        }
     }
-    
-    
 }
