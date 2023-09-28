@@ -1,5 +1,5 @@
 //
-//  IngredientCreationViewController.swift
+//  FirstStepViewController.swift
 //  pantry-app
 //
 //  Created by Marco Agizza on 26/09/23.
@@ -7,23 +7,24 @@
 
 import UIKit
 
-// MARK: - IngredientCreationViewControllerDelegate
+// MARK: - FirstStepViewControllerDelegate
 
-protocol IngredientCreationViewControllerDelegate: AnyObject {
-    func ingredientCreationViewControllerDidPush(_ viewController: UIViewController)
+protocol FirstStepViewControllerDelegate: AnyObject {
+    func incrementCreationStep(_ viewController: UIViewController, didCreate ingredient: Ingredient)
+    func cancelCreationProcess(_ viewController: UIViewController)
 }
 
-// MARK: - IngredientCreationViewController
+// MARK: - FirstStepViewController
 
-class IngredientCreationViewController: UIViewController {
+class FirstStepViewController: UIViewController {
     
     // MARK: - Public Properties
     
-    weak var delegate: IngredientCreationViewControllerDelegate?
+    weak var delegate: FirstStepViewControllerDelegate?
     
     // MARK: - Private Properties
     
-    private var viewModel: IngredientCreationViewControllerViewModel
+    private var viewModel: FirstStepViewControllerViewModel
     
     // MARK: - UI Components
     
@@ -67,9 +68,20 @@ class IngredientCreationViewController: UIViewController {
         return stackView
     }()
     
+    private let continueButton: UIButton = {
+        let continueButton = UIButton()
+        continueButton.setTitle("Continue", for: .normal)
+        continueButton.backgroundColor = .systemGray
+        continueButton.layer.cornerRadius = 18
+        continueButton.frame = CGRect(x: 100, y: 100, width: 200, height: 50)
+        continueButton.isEnabled = false
+        
+        return continueButton
+    }()
+    
     // MARK: - IngredientCreationViewController Init Methods
     
-    init(viewModel: IngredientCreationViewControllerViewModel) {
+    init(viewModel: FirstStepViewControllerViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -82,19 +94,22 @@ class IngredientCreationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        nameTextField.delegate = self
+        quantityTextField.delegate = self
         setupUI()
     }
     
     private func setupUI() {
-        view.backgroundColor = .purple
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark.circle.fill"), style: .plain, target: self, action: #selector(didTapCloseButton))
+        continueButton.addTarget(self, action: #selector(continueButtonTapped), for: .touchUpInside)
+        view.backgroundColor = .white
         view.addSubview(mainVerticalStackView)
         hintLabel.text = "Register a new ingredient"
         mainVerticalStackView.addArrangedSubview(hintLabel)
         mainVerticalStackView.addArrangedSubview(textFieldsVerticalStackView)
         
         mainVerticalStackView.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(90)
+            make.top.equalTo(view).offset(110)
             make.bottom.equalTo(view)
             make.right.equalTo(view).offset(-20)
             make.left.equalTo(view).offset(20)
@@ -102,7 +117,8 @@ class IngredientCreationViewController: UIViewController {
         
         textFieldsVerticalStackView.addArrangedSubview(nameTextField)
         textFieldsVerticalStackView.addArrangedSubview(quantityTextField)
-        
+        mainVerticalStackView.addArrangedSubview(UIView())
+        mainVerticalStackView.addArrangedSubview(continueButton)
         mainVerticalStackView.addArrangedSubview(UIView())
         
         // Create a UIToolbar with a "Done" button
@@ -117,8 +133,41 @@ class IngredientCreationViewController: UIViewController {
         quantityTextField.inputAccessoryView = toolbar
     }
     
+    // MARK: - UI Action
+    
     @objc func doneButtonTapped() {
         view.endEditing(true)
     }
     
+    @objc private func didTapCloseButton() {
+        delegate?.cancelCreationProcess(self)
+    }
+    
+    @objc private func continueButtonTapped() {
+        UIView.animate(withDuration: 0.1, animations: {
+            self.continueButton.layer.opacity = 0.7
+        }) { (_) in
+            UIView.animate(withDuration: 0.1) {
+                self.continueButton.layer.opacity = 1
+            }
+        }
+        delegate?.incrementCreationStep(self, didCreate: viewModel.ingredient)
+    }
+}
+
+extension FirstStepViewController: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        if textField === nameTextField {
+            viewModel.ingredient.name = textField.text ?? ""
+        } else {
+            viewModel.ingredient.quantity = Double(textField.text ?? "") ?? 0.0
+        }
+        if nameTextField.text != "" && quantityTextField.text != "" {
+            continueButton.backgroundColor = .systemBlue
+            continueButton.isEnabled = true
+        } else {
+            continueButton.backgroundColor = .systemGray
+            continueButton.isEnabled = false
+        }
+    }
 }

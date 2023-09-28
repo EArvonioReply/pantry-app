@@ -20,7 +20,7 @@ class PantryCollectionViewCell: UICollectionViewCell {
         imageView.image = UIImage(systemName: "questionmark")
         imageView.tintColor = .systemOrange
         imageView.clipsToBounds = true
-        imageView.layer.borderColor = CGColor(red: 255, green: 123, blue: 23, alpha: 1)
+        imageView.layer.borderColor = UIColor.black.cgColor
         imageView.layer.borderWidth = 1
         return imageView
     }()

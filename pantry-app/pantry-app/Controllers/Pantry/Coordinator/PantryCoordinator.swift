@@ -35,19 +35,31 @@ final class PantryCoordinator: NavigationCoordinator {
 
 extension PantryCoordinator: PantryViewControllerDelegate {
     func pantryViewControllerDidPresent() {
-        //viewController.modalPresentationStyle = .fullScreen
-        let ingredientCreationViewModel = IngredientCreationViewControllerViewModel()
-        let viewController = IngredientCreationViewController(viewModel: ingredientCreationViewModel)
-        let coordinator = BaseCoordinator(navigationController: navigationController, viewController: viewController)
+        let coordinator = IngredientCreationCoordinator()
+        coordinator.delegate = self
         present(child: coordinator)
     }
     
     func pantryViewControllerDidPush(_ ingredient: Ingredient) {
-        let ingredientViewModel = IngredientViewControllerViewModel(ingredient: ingredient)
-        let viewController = IngredientViewController(viewModel: ingredientViewModel)
-        let coordinator = BaseCoordinator(navigationController: navigationController, viewController: viewController)
+        let coordinator = IngredientCoordinator(ingredient: ingredient, navigationController: self.navigationController)
         push(child: coordinator)
     }
     
     
+}
+
+// MARK: - IngredientCreationCoordinatorDelegate Extension
+
+extension PantryCoordinator: IngredientCreationCoordinatorDelegate {
+    func ingredientCreationCoordinator(_ coordinator: IngredientCreationCoordinator, didCreate ingredient: Ingredient) {
+        if let pantryNavigationViewController = viewController as? UINavigationController {
+            let pantryViewController = pantryNavigationViewController.viewControllers.first as! PantryViewController
+            pantryViewController.add(new: ingredient)
+            dismiss(child: coordinator)
+        }
+    }
+    
+    func cancelIngredientCreation(_ coordinator: IngredientCreationCoordinator) {
+        dismiss(child: coordinator)
+    }
 }
