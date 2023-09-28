@@ -63,14 +63,18 @@ final class IngredientCreationCoordinator: NavigationCoordinator {
 
 extension IngredientCreationCoordinator: StepCoordinatorDelegate {
     func update(ingredient: Ingredient?, andMoveTo step: Step) {
+        guard let ingredient else {
+            delegate?.cancelIngredientCreation(self)
+            return
+        }
         self.ingredient = ingredient
         switch step {
         case .second:
-            let coordinator = SecondStepCoordinator(navigationController: navigationController, ingredient: ingredient!)
+            let coordinator = SecondStepCoordinator(navigationController: navigationController, ingredient: ingredient)
             coordinator.delegate = self
             push(child: coordinator)
         case .creation:
-            delegate?.ingredientCreationCoordinator(self, didCreate: ingredient!)
+            delegate?.ingredientCreationCoordinator(self, didCreate: ingredient)
         case .cancellation:
             delegate?.cancelIngredientCreation(self)
         }
