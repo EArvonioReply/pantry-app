@@ -75,13 +75,14 @@ class SecondStepViewController: UIViewController {
     }()
     
     private let createButton: UIButton = {
-        let continueButton = UIButton()
-        continueButton.setTitle("Create", for: .normal)
-        continueButton.backgroundColor = .systemBlue
-        continueButton.layer.cornerRadius = 18
-        continueButton.frame = CGRect(x: 100, y: 100, width: 200, height: 50)
+        let createButton = UIButton()
+        createButton.setTitle("Create", for: .normal)
+        createButton.backgroundColor = .systemGray
+        createButton.layer.cornerRadius = 18
+        createButton.frame = CGRect(x: 100, y: 100, width: 200, height: 50)
+        createButton.isEnabled = false
         
-        return continueButton
+        return createButton
     }()
     
     // MARK: - IngredientCreationViewController Init Methods
@@ -105,7 +106,7 @@ class SecondStepViewController: UIViewController {
     
     private func setupUI() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark.circle.fill"), style: .plain, target: self, action: #selector(didTapCloseButton))
-        datePicker.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
+        datePicker.addTarget(self, action: #selector(datePickerValueChanged), for: .editingDidEnd)
         createButton.addTarget(self, action: #selector(createButtonTapped), for: .touchUpInside)
         view.backgroundColor = .white
         view.addSubview(mainVerticalStackView)
@@ -156,6 +157,8 @@ class SecondStepViewController: UIViewController {
         dateFormatter.timeStyle = .none
         let selectedDate = sender.date
         viewModel.ingredient.expiringDate = sender.date
+        createButton.isEnabled = true
+        createButton.backgroundColor = .systemBlue
     }
     
     @objc func createButtonTapped() {
