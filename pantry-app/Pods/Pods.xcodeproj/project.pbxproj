@@ -15076,7 +15076,7 @@
 		4A86103A5230F7E2F18989D0E969E8D9 /* filtered_re2.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = filtered_re2.h; path = third_party/re2/re2/filtered_re2.h; sourceTree = "<group>"; };
 		4A88C758552D31D9D1880A413FC09818 /* global_config_env.cc */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = global_config_env.cc; path = src/core/lib/gprpp/global_config_env.cc; sourceTree = "<group>"; };
 		4A9011CF3A9CB8744F2AA0630D5CB7D4 /* FIRInstallationsIIDTokenStore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRInstallationsIIDTokenStore.h; path = FirebaseInstallations/Source/Library/IIDMigration/FIRInstallationsIIDTokenStore.h; sourceTree = "<group>"; };
-		4A94FC58A21534580DADDEF0DD4CCDB9 /* CodableFirebase */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = CodableFirebase; path = CodableFirebase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A94FC58A21534580DADDEF0DD4CCDB9 /* CodableFirebase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CodableFirebase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A99EFBC7FA40AC30337028CC11B3C91 /* httpcli_ssl_credentials.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = httpcli_ssl_credentials.h; path = src/core/lib/http/httpcli_ssl_credentials.h; sourceTree = "<group>"; };
 		4A9E315ECCADBC7C75D776171EF9D750 /* secret.upb.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = secret.upb.h; path = "src/core/ext/upb-generated/envoy/extensions/transport_sockets/tls/v3/secret.upb.h"; sourceTree = "<group>"; };
 		4AA0D79AEB2B768E2D49EA7FBDE0358F /* udp_socket_config.upb.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = udp_socket_config.upb.h; path = "src/core/ext/upb-generated/envoy/config/core/v3/udp_socket_config.upb.h"; sourceTree = "<group>"; };
@@ -15193,7 +15193,7 @@
 		5113CE54AAB3425BAA7564A7DEB198AA /* ssl_key_logging.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ssl_key_logging.h; path = src/core/tsi/ssl/key_logging/ssl_key_logging.h; sourceTree = "<group>"; };
 		5118F66114FFB4821986E202B3857740 /* handle_containers.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = handle_containers.h; path = src/core/lib/event_engine/handle_containers.h; sourceTree = "<group>"; };
 		51444DDBDA447A8D482F553823F38757 /* security_handshaker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = security_handshaker.h; path = src/core/lib/security/transport/security_handshaker.h; sourceTree = "<group>"; };
-		514D7742C6CBB0BDBD9984AEE97DDFDE /* BoringSSL-GRPC */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "BoringSSL-GRPC"; path = openssl_grpc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		514D7742C6CBB0BDBD9984AEE97DDFDE /* openssl_grpc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = openssl_grpc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		51671C73F008B5C0C3751B3855999213 /* FirebaseDatabase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FirebaseDatabase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		51730762917B32EC1A2A9F5F2EF09EA3 /* FTupleObjects.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FTupleObjects.m; path = FirebaseDatabase/Sources/Utilities/Tuples/FTupleObjects.m; sourceTree = "<group>"; };
 		517F6415163E146C071AE3B784C79F1C /* socket_mutator.cc */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = socket_mutator.cc; path = src/core/lib/iomgr/socket_mutator.cc; sourceTree = "<group>"; };
@@ -16288,7 +16288,7 @@
 		91E4DECA2356268AEE6F2D06AC8CBA73 /* FIRCollectionReference.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRCollectionReference.h; path = Firestore/Source/Public/FirebaseFirestore/FIRCollectionReference.h; sourceTree = "<group>"; };
 		91E515012951190DC5007C87C475AB13 /* internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = internal.h; path = src/crypto/fipsmodule/md5/internal.h; sourceTree = "<group>"; };
 		91EBECC6582A47B59CB0E2ACF9B83573 /* patch_mutation.cc */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = patch_mutation.cc; path = Firestore/core/src/model/patch_mutation.cc; sourceTree = "<group>"; };
-		92000153CD73F7FC2DBAB4AB708269F3 /* FirebaseFirestore */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FirebaseFirestore; path = FirebaseFirestore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		92000153CD73F7FC2DBAB4AB708269F3 /* FirebaseFirestore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FirebaseFirestore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9203DCCC73C6EFB6B1E28B141DB020BB /* zipkin.upbdefs.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = zipkin.upbdefs.h; path = "src/core/ext/upbdefs-generated/envoy/config/trace/v3/zipkin.upbdefs.h"; sourceTree = "<group>"; };
 		9208914EE1F8401C561C9DB21E7DAE32 /* aead.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = aead.h; path = src/include/openssl/aead.h; sourceTree = "<group>"; };
 		920AF0F7229764A51D23A79EF386B6E7 /* alts_credentials.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = alts_credentials.h; path = src/core/lib/security/credentials/alts/alts_credentials.h; sourceTree = "<group>"; };
@@ -24000,13 +24000,13 @@
 			isa = PBXGroup;
 			children = (
 				BF96B57ADE05E8909F823BDF6868B3E3 /* absl.framework */,
-				514D7742C6CBB0BDBD9984AEE97DDFDE /* BoringSSL-GRPC */,
-				4A94FC58A21534580DADDEF0DD4CCDB9 /* CodableFirebase */,
+				514D7742C6CBB0BDBD9984AEE97DDFDE /* openssl_grpc.framework */,
+				4A94FC58A21534580DADDEF0DD4CCDB9 /* CodableFirebase.framework */,
 				E2B63D462DB7F827C4B11FD51E4F8E2D /* FirebaseCore.framework */,
 				AEF1DC80F0EB62580B81D18786BAF924 /* FirebaseCoreExtension.framework */,
 				148D0F9E8C7373FEAF40D800FC5F1BAA /* FirebaseCoreInternal.framework */,
 				51671C73F008B5C0C3751B3855999213 /* FirebaseDatabase.framework */,
-				92000153CD73F7FC2DBAB4AB708269F3 /* FirebaseFirestore */,
+				92000153CD73F7FC2DBAB4AB708269F3 /* FirebaseFirestore.framework */,
 				720974C5A5873C4DB14E6CC7A51AFDB7 /* FirebaseFirestoreSwift.framework */,
 				13C8C8B254851998F9289F71229B28A2 /* FirebaseInstallations.framework */,
 				519172F62353C84795D05BA8A499936B /* FirebaseSharedSwift.framework */,
@@ -27608,7 +27608,7 @@
 			);
 			name = "BoringSSL-GRPC";
 			productName = openssl_grpc;
-			productReference = 514D7742C6CBB0BDBD9984AEE97DDFDE /* BoringSSL-GRPC */;
+			productReference = 514D7742C6CBB0BDBD9984AEE97DDFDE /* openssl_grpc.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		48CE7F1410B7EB368E7028DF462F06FC /* Pods-pantry-app */ = {
@@ -28052,7 +28052,7 @@
 			);
 			name = FirebaseFirestore;
 			productName = FirebaseFirestore;
-			productReference = 92000153CD73F7FC2DBAB4AB708269F3 /* FirebaseFirestore */;
+			productReference = 92000153CD73F7FC2DBAB4AB708269F3 /* FirebaseFirestore.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		E348382FA7E1F8A639AFBFF3F8C4FC04 /* CodableFirebase */ = {
@@ -28070,7 +28070,7 @@
 			);
 			name = CodableFirebase;
 			productName = CodableFirebase;
-			productReference = 4A94FC58A21534580DADDEF0DD4CCDB9 /* CodableFirebase */;
+			productReference = 4A94FC58A21534580DADDEF0DD4CCDB9 /* CodableFirebase.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		FE1DE31D91C32501251AE9687CDC2E0F /* FirebaseCoreExtension */ = {
@@ -30940,7 +30940,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Target Support Files/FirebaseFirestore/FirebaseFirestore-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -31077,7 +31077,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/BoringSSL-GRPC/BoringSSL-GRPC-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/BoringSSL-GRPC/BoringSSL-GRPC-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -31859,7 +31859,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/BoringSSL-GRPC/BoringSSL-GRPC-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/BoringSSL-GRPC/BoringSSL-GRPC-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -31894,7 +31894,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/CodableFirebase/CodableFirebase-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/CodableFirebase/CodableFirebase-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -31998,7 +31998,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Target Support Files/FirebaseFirestore/FirebaseFirestore-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -32033,7 +32033,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/CodableFirebase/CodableFirebase-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/CodableFirebase/CodableFirebase-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

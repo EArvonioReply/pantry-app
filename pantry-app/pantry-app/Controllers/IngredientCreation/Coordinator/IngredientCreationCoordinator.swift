@@ -10,13 +10,14 @@ import UIKit
 // MARK: - Creation Steps Enumeration
 
 enum Step {
-    case second, creation, cancellation
+    case second, creation
 }
 
 // MARK: - StepCoordinatorDelegate
 
 protocol StepCoordinatorDelegate: AnyObject {
     func update(ingredient: Ingredient?, andMoveTo step: Step)
+    func cancelCreation()
 }
 
 // MARK: - IngredientCreationCoordinatorDelegate
@@ -75,8 +76,9 @@ extension IngredientCreationCoordinator: StepCoordinatorDelegate {
             push(child: coordinator)
         case .creation:
             delegate?.ingredientCreationCoordinator(self, didCreate: ingredient)
-        case .cancellation:
-            delegate?.cancelIngredientCreation(self)
         }
+    }
+    func cancelCreation() {
+        delegate?.cancelIngredientCreation(self)
     }
 }

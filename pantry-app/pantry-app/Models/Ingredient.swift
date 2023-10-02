@@ -29,6 +29,14 @@ struct Ingredient: Codable {
     var photoUrl: String?
     //var unitOfMeasure: UnitOfMeasure
     
+//    enum CodingKeys: String, CodingKey {
+//        case id = "id"
+//        case name = "name"
+//        case quantity = "quantity"
+//        case expiringDate = "expiring_date"
+//        case photoUrl = "photo_url"
+//    }
+    
     // MARK: - Ingredient Init Methods
     
     init() {
@@ -46,5 +54,23 @@ struct Ingredient: Codable {
         self.expiringDate = expiringDate
         self.photoUrl = photoUrl
     }
+    
+//    init(from decoder: Decoder) throws {
+//        let container = try decoder.container(keyedBy: CodingKeys.self)
+//        self.id = try container.decode(String.self, forKey: .id)
+//        self.name = try container.decode(String.self, forKey: .name)
+//        self.quantity = try container.decode(Double.self, forKey: .quantity)
+//        self.expiringDate = try container.decode(Date.self, forKey: .expiringDate)
+//        self.photoUrl = try container.decodeIfPresent(String.self, forKey: .photoUrl)
+//    }
+//    
+//    func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(self.id, forKey: .id)
+//        try container.encode(self.name, forKey: .name)
+//        try container.encode(self.quantity, forKey: .quantity)
+//        try container.encode(self.expiringDate, forKey: .expiringDate)
+//        try container.encodeIfPresent(self.photoUrl, forKey: .photoUrl)
+//    }
     
 }
