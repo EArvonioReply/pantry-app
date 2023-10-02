@@ -95,7 +95,8 @@ class IngredientViewController: UIViewController {
     private func setupUI() {
         nameLabel.text = viewModel.name
         quantityLabel.text = "\(viewModel.quantity) \(viewModel.unitOfMeasure)"
-        expiringDateLabel.text = "Expiring date is \(viewModel.getFormattedDate())"
+//        expiringDateLabel.text = "Expiring date is \(viewModel.getFormattedDate())"
+        expiringDateLabel.text = "Expiring date is .."
         ingredientImage.image = viewModel.image
         ingredientImage.snp.makeConstraints { make in
             make.height.equalTo(view.frame.width - 20)

@@ -34,7 +34,12 @@ class PantryViewController: UIViewController {
         self.viewModel = viewModel
         
         super.init(nibName: nil, bundle: nil)
-        viewModel.loadData()
+        
+        viewModel.loadData { [weak self] in
+            print("aggiorno collection view")
+            self?.ingredientsCollectionView.reloadData()
+            
+        }
         title = "Pantry"
         
     }
@@ -74,12 +79,17 @@ class PantryViewController: UIViewController {
         
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus.circle.fill"), style: .plain, target: self, action: #selector(didTapPlusButton))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.clockwise.circle.fill"), style: .plain, target: self, action: #selector(didTapRefreshButton))
     }
     
     // MARK: - UI Action
     
     @objc private func didTapPlusButton() {
         delegate?.pantryViewControllerDidPresent()
+    }
+    
+    @objc private func didTapRefreshButton() {
+        ingredientsCollectionView.reloadData()
     }
     
     func add(new ingredient: Ingredient) {
@@ -101,7 +111,7 @@ extension PantryViewController: UICollectionViewDelegate, UICollectionViewDataSo
             fatalError("Failed to dequeue CustomCollectionViewCell in CollectionViewController")
         }
         
-        cell.configure(with: viewModel.getIngredient(at: indexPath.row).image ?? UIImage(systemName: "fork.knife.circle.fill")!)
+        cell.configure(with: /*viewModel.getIngredient(at: indexPath.row).image ??*/ UIImage(systemName: "fork.knife.circle.fill")!)
         return cell
     }
     
