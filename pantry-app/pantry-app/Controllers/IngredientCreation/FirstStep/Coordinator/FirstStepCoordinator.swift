@@ -42,6 +42,6 @@ extension FirstStepCoordinator: FirstStepViewControllerDelegate {
     }
     
     func cancelCreationProcess(_ viewController: UIViewController) {
-        delegate?.update(ingredient: nil, andMoveTo: .cancellation)
+        delegate?.cancelCreation()
     }
 }

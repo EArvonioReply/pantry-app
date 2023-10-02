@@ -18,17 +18,17 @@ class IngredientManager {
     private let ingredientCollection = Firestore.firestore().collection("ingredients")
     
     // MARK: - Firestore Encoder and Decoder
-    private let encoder: Firestore.Encoder = {
-        let encoder = Firestore.Encoder()
-        encoder.keyEncodingStrategy = .convertToSnakeCase
-        return encoder
-    }()
+//    private let encoder: Firestore.Encoder = {
+//        let encoder = Firestore.Encoder()
+//        encoder.keyEncodingStrategy = .convertToSnakeCase
+//        return encoder
+//    }()
     
-    private let decoder: Firestore.Decoder = {
-        let decoder = Firestore.Decoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        return decoder
-    }()
+//    private let decoder: Firestore.Decoder = {
+//        let decoder = Firestore.Decoder()
+//        decoder.keyDecodingStrategy = .convertFromSnakeCase
+//        return decoder
+//    }()
     
     // MARK: - IngredientManager Init Method
     
@@ -43,13 +43,18 @@ class IngredientManager {
 
 extension IngredientManager {
     
-    
     func saveIngredient(_ ingredient: Ingredient) async throws {
+        let encoder = Firestore.Encoder()
+        encoder.keyEncodingStrategy = .convertToSnakeCase
+        
         try ingredientDocument(identifiedBy: ingredient.id).setData(from: ingredient, merge: false, encoder: encoder)
     }
     
     func getIngredient(ingredientID: String) async throws -> Ingredient {
-        try await ingredientDocument(identifiedBy: ingredientID).getDocument(as: Ingredient.self, decoder: decoder)
+        let decoder = Firestore.Decoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        
+        return try await ingredientDocument(identifiedBy: ingredientID).getDocument(as: Ingredient.self, decoder: decoder)
     }
 }
 

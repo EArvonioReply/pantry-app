@@ -48,17 +48,16 @@ class PantryViewControllerViewModel {
                 print("Error getting documents: \(err)")
             } else {
                 for document in querySnapshot!.documents {
-                    print("\(document.documentID) --> \(document.data())")
-                    //self.fetchIngredient(documentId: document.documentID)
-                    dispatchGroup.enter() // entro
+                    dispatchGroup.enter()
                     Task {
                         defer {
-                            dispatchGroup.leave() // esco
+                            dispatchGroup.leave()
                         }
                         do {
                             let ingredient = try await IngredientManager.shared.getIngredient(ingredientID: document.documentID)
-                            print("recovered ingredient: \(ingredient)")
+                            print(ingredient)
                             self.ingredients.append(ingredient)
+                            
                         } catch {
                             print("error in saving ingredient to the db: \(error)")
                         }
@@ -67,21 +66,9 @@ class PantryViewControllerViewModel {
                 dispatchGroup.notify(queue: .main) {
                     handler()
                 }
+                
             }
         }
     }
     
-    private func fetchIngredient(documentId: String) {
-        let docRef = database.collection("ingredients").document(documentId)
-        
-        docRef.getDocument(as: Ingredient.self) { result in
-            switch result {
-            case .success(let ingredient):
-                print("fetch success with \(ingredient)")
-                self.ingredients.append(ingredient)
-            case .failure(let error):
-                print("Error decoding document: \(error.localizedDescription)")
-            }
-        }
-    }
 }
