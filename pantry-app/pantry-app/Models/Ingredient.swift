@@ -6,51 +6,45 @@
 //
 
 import UIKit
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
-enum UnitOfMeasure {
+// MARK: - UnitOfMeasure
+
+enum UnitOfMeasure: Decodable {
+    case litres
     case kilograms
     case grams
-    case ounce
     case pieces
-    case litres
 }
 
-struct Ingredient: Identifiable {
-    let id = UUID()
+// MARK: - Ingredient
+
+struct Ingredient: Codable {
+    
+    var id: String
     var name: String
-    var image: UIImage?
     var quantity: Double
-    var unitOfMeasure: UnitOfMeasure
     var expiringDate: Date
+    var photoUrl: String?
+    //var unitOfMeasure: UnitOfMeasure
     
-    init(name: String, quantity: Double, unitOfMeasure: UnitOfMeasure, expiringDate: Date) {
-        self.name = name
-        self.quantity = quantity
-        self.unitOfMeasure = unitOfMeasure
-        self.expiringDate = expiringDate
-    }
-    
-    init(name: String, quantity: Double, expiringDate: Date) {
-        self.name = name
-        self.quantity = quantity
-        self.unitOfMeasure = .pieces
-        self.expiringDate = expiringDate
-    }
+    // MARK: - Ingredient Init Methods
     
     init() {
-        self.name = ""
-        self.quantity = 0
-        self.unitOfMeasure = .kilograms
-        self.expiringDate = Date()
+        id = UUID().uuidString
+        name = ""
+        quantity = 0.0
+        expiringDate = Date()
+        //unitOfMeasure = .pieces
     }
-}
-
-extension Ingredient {
-    public static func getMockArray() -> [Ingredient] {
-        return [
-            Ingredient(name: "Mozzarella", quantity: 1.2, unitOfMeasure: .kilograms, expiringDate: Date()),
-            Ingredient(name: "Olio", quantity: 0.5, unitOfMeasure: .litres, expiringDate: Date()),
-            Ingredient(name: "Basilico", quantity: 8, unitOfMeasure: .pieces, expiringDate: Date())
-        ]
+    
+    init(id: String, name: String, quantity: Double, expiringDate: Date, photoUrl: String?) {
+        self.id = id
+        self.name = name
+        self.quantity = quantity
+        self.expiringDate = expiringDate
+        self.photoUrl = photoUrl
     }
+    
 }

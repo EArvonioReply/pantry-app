@@ -155,8 +155,7 @@ class SecondStepViewController: UIViewController {
         dateFormatter.dateFormat = "dd/MM/YY"
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
-        let selectedDate = sender.date
-        viewModel.ingredient.expiringDate = sender.date
+        //viewModel.ingredient.expiringDate = sender.date
         createButton.isEnabled = true
         createButton.backgroundColor = .systemBlue
     }
