@@ -63,9 +63,9 @@ class PantryViewControllerViewModel {
                             print("error in saving ingredient to the db: \(error)")
                         }
                     }
-                    dispatchGroup.notify(queue: .main) {
-                        handler()
-                    }
+                }
+                dispatchGroup.notify(queue: .main) {
+                    handler()
                 }
             }
         }
