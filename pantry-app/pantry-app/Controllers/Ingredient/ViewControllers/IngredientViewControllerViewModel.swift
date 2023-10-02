@@ -14,7 +14,7 @@ class IngredientViewControllerViewModel {
     var image: UIImage { /*ingredient.image ??*/ UIImage(systemName: "fork.knife.circle.fill")! }
     var quantity: Double { ingredient.quantity }
     var unitOfMeasure: UnitOfMeasure { .pieces/*ingredient.unitOfMeasure*/ }
-    //var expiringDate: Date { ingredient.expiringDate }
+    var expiringDate: Date { ingredient.expiringDate }
     
     // MARK: - IngredientViewControllerViewModel Init Methods
     
@@ -24,11 +24,11 @@ class IngredientViewControllerViewModel {
     
     // MARK: - Utilities
     
-    /*func getFormattedDate() -> String {
+    func getFormattedDate() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yy"
         
         return dateFormatter.string(from: expiringDate).description
-    }*/
+    }
     
 }
