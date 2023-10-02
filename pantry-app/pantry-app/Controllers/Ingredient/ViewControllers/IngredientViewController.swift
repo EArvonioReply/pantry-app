@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import Kingfisher
 // MARK: - IngredientViewControllerDelegate
 
 protocol IngredientViewControllerDelegate: AnyObject {
@@ -39,6 +39,8 @@ class IngredientViewController: UIViewController {
         let ingredientImage = UIImageView()
         ingredientImage.image = UIImage(systemName: "fork.knife.circle.fill")
         ingredientImage.contentMode = .scaleAspectFit
+        ingredientImage.layer.cornerRadius = 10
+        
         return ingredientImage
     }()
     
@@ -96,7 +98,7 @@ class IngredientViewController: UIViewController {
         nameLabel.text = viewModel.name
         quantityLabel.text = "\(viewModel.quantity) \(viewModel.unitOfMeasure)"
         expiringDateLabel.text = "Expiring date is \(viewModel.getFormattedDate())"
-        ingredientImage.image = viewModel.image
+        ingredientImage.kf.setImage(with: URL(string: viewModel.photoUrl ?? ""), placeholder: UIImage(systemName: "fork.knife.circle.fill")!)
         ingredientImage.snp.makeConstraints { make in
             make.height.equalTo(view.frame.width - 20)
         }
@@ -105,7 +107,7 @@ class IngredientViewController: UIViewController {
         mainVerticalStackView.addArrangedSubview(ingredientImage)
         mainVerticalStackView.addArrangedSubview(horizontalStackView)
         mainVerticalStackView.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(90)
+            make.top.equalTo(view).offset(40)
             make.bottom.equalTo(view)
             make.right.equalTo(view).offset(-20)
             make.left.equalTo(view).offset(20)

@@ -16,7 +16,8 @@ enum Step {
 // MARK: - StepCoordinatorDelegate
 
 protocol StepCoordinatorDelegate: AnyObject {
-    func update(ingredient: Ingredient?, andMoveTo step: Step)
+    func moveToSecondStep(ingredient: Ingredient?)
+    func confirmCreation(of ingredient: Ingredient)
     func cancelCreation()
 }
 
@@ -37,9 +38,9 @@ final class IngredientCreationCoordinator: NavigationCoordinator {
     var viewController: UIViewController
     var childrenCoordinators: [Coordinator] = []
     
-    weak var delegate: IngredientCreationCoordinatorDelegate?
+    // MARK: - IngredientCreationCoordinatorDelegate delegate
     
-    private var ingredient: Ingredient?
+    weak var delegate: IngredientCreationCoordinatorDelegate?
     
     // MARK: - Init Method
     
@@ -63,21 +64,20 @@ final class IngredientCreationCoordinator: NavigationCoordinator {
 // MARK: - StepCoordinatorDelegate Extension
 
 extension IngredientCreationCoordinator: StepCoordinatorDelegate {
-    func update(ingredient: Ingredient?, andMoveTo step: Step) {
+    func moveToSecondStep(ingredient: Ingredient?) {
         guard let ingredient else {
             delegate?.cancelIngredientCreation(self)
             return
         }
-        self.ingredient = ingredient
-        switch step {
-        case .second:
-            let coordinator = SecondStepCoordinator(navigationController: navigationController, ingredient: ingredient)
-            coordinator.delegate = self
-            push(child: coordinator)
-        case .creation:
-            delegate?.ingredientCreationCoordinator(self, didCreate: ingredient)
-        }
+        let coordinator = SecondStepCoordinator(navigationController: navigationController, ingredient: ingredient)
+        coordinator.delegate = self
+        push(child: coordinator)
     }
+    
+    func confirmCreation(of ingredient: Ingredient) {
+        delegate?.ingredientCreationCoordinator(self, didCreate: ingredient)
+    }
+    
     func cancelCreation() {
         delegate?.cancelIngredientCreation(self)
     }

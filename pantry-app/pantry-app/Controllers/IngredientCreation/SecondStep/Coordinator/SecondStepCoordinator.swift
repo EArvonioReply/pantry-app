@@ -38,7 +38,7 @@ final class SecondStepCoordinator: NavigationCoordinator {
 
 extension SecondStepCoordinator: SecondStepViewControllerDelegate {
     func incrementCreationStep(_ viewController: UIViewController, didCreate ingredient: Ingredient) {
-        delegate?.update(ingredient: ingredient, andMoveTo: .creation)
+        delegate?.confirmCreation(of: ingredient)
     }
     
     func cancelCreationProcess(_ viewController: UIViewController) {

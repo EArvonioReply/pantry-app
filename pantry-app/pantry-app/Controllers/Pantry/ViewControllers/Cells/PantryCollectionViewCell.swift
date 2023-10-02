@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 class PantryCollectionViewCell: UICollectionViewCell {
     
@@ -27,15 +28,15 @@ class PantryCollectionViewCell: UICollectionViewCell {
     
     // MARK: - PantryCollectionViewCell Configuration Methods
     
-    public func configure(with image: UIImage) {
-        myImageView.image = image
+    public func configure(with imageUrl: String) {
+        myImageView.kf.setImage(with: URL(string: imageUrl), placeholder: UIImage(systemName: "fork.knife.circle.fill")!)
+        myImageView.layer.cornerRadius = 10.0
         setupUI()
     }
     
     private func setupUI() {
         self.addSubview(myImageView)
         myImageView.translatesAutoresizingMaskIntoConstraints = false
-        
         myImageView.snp.makeConstraints { make in
             make.edges.equalTo(self)
         }

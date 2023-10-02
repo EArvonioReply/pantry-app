@@ -11,9 +11,9 @@ class IngredientViewControllerViewModel {
     let ingredient: Ingredient
     
     var name: String { ingredient.name }
-    var image: UIImage { /*ingredient.image ??*/ UIImage(systemName: "fork.knife.circle.fill")! }
+    var photoUrl: String? { ingredient.photoUrl }
     var quantity: Double { ingredient.quantity }
-    var unitOfMeasure: UnitOfMeasure { .pieces/*ingredient.unitOfMeasure*/ }
+    var unitOfMeasure: UnitOfMeasure { ingredient.unitOfMeasure }
     var expiringDate: Date { ingredient.expiringDate }
     
     // MARK: - IngredientViewControllerViewModel Init Methods

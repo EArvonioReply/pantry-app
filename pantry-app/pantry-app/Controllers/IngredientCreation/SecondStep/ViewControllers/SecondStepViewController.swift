@@ -130,12 +130,10 @@ class SecondStepViewController: UIViewController {
         mainVerticalStackView.addArrangedSubview(createButton)
         mainVerticalStackView.addArrangedSubview(UIView())
         
-        // Create a UIToolbar with a "Done" button
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         
         let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonTapped))
-        
         toolbar.setItems([doneButton], animated: false)
         
     }
@@ -155,7 +153,7 @@ class SecondStepViewController: UIViewController {
         dateFormatter.dateFormat = "dd/MM/YY"
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
-        //viewModel.ingredient.expiringDate = sender.date
+        viewModel.ingredient.expiringDate = sender.date
         createButton.isEnabled = true
         createButton.backgroundColor = .systemBlue
     }

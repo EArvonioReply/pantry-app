@@ -38,7 +38,7 @@ final class FirstStepCoordinator: NavigationCoordinator {
 
 extension FirstStepCoordinator: FirstStepViewControllerDelegate {
     func incrementCreationStep(_ viewController: UIViewController, didCreate ingredient: Ingredient) {
-        delegate?.update(ingredient: ingredient, andMoveTo: .second)
+        delegate?.moveToSecondStep(ingredient: ingredient)
     }
     
     func cancelCreationProcess(_ viewController: UIViewController) {

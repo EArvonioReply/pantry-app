@@ -111,7 +111,7 @@ extension PantryViewController: UICollectionViewDelegate, UICollectionViewDataSo
             fatalError("Failed to dequeue CustomCollectionViewCell in CollectionViewController")
         }
         
-        cell.configure(with: /*viewModel.getIngredient(at: indexPath.row).image ??*/ UIImage(systemName: "fork.knife.circle.fill")!)
+        cell.configure(with: viewModel.getIngredient(at: indexPath.row).photoUrl ?? "")
         return cell
     }
     
