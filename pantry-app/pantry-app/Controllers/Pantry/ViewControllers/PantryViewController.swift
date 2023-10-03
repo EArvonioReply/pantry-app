@@ -64,6 +64,9 @@ class PantryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.checkForPermission() { alertController in
+            self.present(alertController, animated: true)
+        }
         setupUI()
         
         ingredientsCollectionView.dataSource = self
@@ -93,7 +96,9 @@ class PantryViewController: UIViewController {
     }
     
     func add(new ingredient: Ingredient) {
-        viewModel.add(new: ingredient)
+        viewModel.add(new: ingredient) { alertController in
+            self.present(alertController, animated: true)
+        }
         ingredientsCollectionView.reloadData()
     }
 

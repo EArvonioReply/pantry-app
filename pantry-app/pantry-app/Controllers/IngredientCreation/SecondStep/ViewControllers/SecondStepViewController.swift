@@ -100,6 +100,7 @@ class SecondStepViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .systemBackground
         
         setupUI()
     }
@@ -108,7 +109,6 @@ class SecondStepViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark.circle.fill"), style: .plain, target: self, action: #selector(didTapCloseButton))
         datePicker.addTarget(self, action: #selector(datePickerValueChanged), for: .editingDidEnd)
         createButton.addTarget(self, action: #selector(createButtonTapped), for: .touchUpInside)
-        view.backgroundColor = .white
         view.addSubview(mainVerticalStackView)
         hintLabel.text = "Final step"
         dateLabel.text = "Expiring date for \(viewModel.ingredient.name):"
