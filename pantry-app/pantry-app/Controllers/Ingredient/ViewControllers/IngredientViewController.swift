@@ -79,7 +79,6 @@ class IngredientViewController: UIViewController {
         self.viewModel = viewModel
         
         super.init(nibName: nil, bundle: nil)
-        view.backgroundColor = .white
     }
     
     required init?(coder: NSCoder) {
@@ -90,6 +89,7 @@ class IngredientViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .systemBackground
         setupUI()
         
     }

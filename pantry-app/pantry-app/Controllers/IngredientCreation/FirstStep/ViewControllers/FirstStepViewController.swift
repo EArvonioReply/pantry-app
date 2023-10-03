@@ -94,6 +94,7 @@ class FirstStepViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .systemBackground
         nameTextField.delegate = self
         quantityTextField.delegate = self
         setupUI()
@@ -102,7 +103,6 @@ class FirstStepViewController: UIViewController {
     private func setupUI() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark.circle.fill"), style: .plain, target: self, action: #selector(didTapCloseButton))
         continueButton.addTarget(self, action: #selector(continueButtonTapped), for: .touchUpInside)
-        view.backgroundColor = .white
         view.addSubview(mainVerticalStackView)
         hintLabel.text = "Register a new ingredient"
         mainVerticalStackView.addArrangedSubview(hintLabel)
