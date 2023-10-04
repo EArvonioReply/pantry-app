@@ -116,7 +116,7 @@ extension PantryViewController: UICollectionViewDelegate, UICollectionViewDataSo
             fatalError("Failed to dequeue CustomCollectionViewCell in CollectionViewController")
         }
         
-        cell.configure(with: viewModel.getIngredient(at: indexPath.row).photoUrl ?? "")
+        cell.configure(by: PantryCollectionViewCellViewModel(ingredient: viewModel.getIngredient(at: indexPath.row)))
         return cell
     }
     
@@ -147,5 +147,5 @@ extension PantryViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - CRUD Operations
 
 extension PantryViewController {
-    override func collectionViewedi
+    
 }
