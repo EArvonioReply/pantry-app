@@ -28,6 +28,7 @@ struct Ingredient: Codable {
     var expiringDate: Date
     var photoUrl: String?
     var unitOfMeasure: UnitOfMeasure
+    var alertId: String?
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
@@ -36,6 +37,7 @@ struct Ingredient: Codable {
         case expiringDate = "expiring_date"
         case photoUrl = "photo_url"
         case unitOfMeasure = "unit_of_measure"
+        case alertId = "alert_id"
     }
     
     // MARK: - Ingredient Init Methods
@@ -47,13 +49,14 @@ struct Ingredient: Codable {
         unitOfMeasure = .pieces
     }
     
-    init(id: String, name: String, quantity: Double, expiringDate: Date, photoUrl: String?, unitOfMeasure: UnitOfMeasure) {
+    init(id: String, name: String, quantity: Double, expiringDate: Date, photoUrl: String?, unitOfMeasure: UnitOfMeasure, alertId: String?) {
         self.id = id
         self.name = name
         self.quantity = quantity
         self.expiringDate = expiringDate
         self.photoUrl = photoUrl
         self.unitOfMeasure = unitOfMeasure
+        self.alertId = alertId
     }
     
     init(from decoder: Decoder) throws {
@@ -63,6 +66,7 @@ struct Ingredient: Codable {
         self.quantity = try container.decode(Double.self, forKey: .quantity)
         self.expiringDate = try container.decode(Date.self, forKey: .expiringDate)
         self.photoUrl = try container.decodeIfPresent(String.self, forKey: .photoUrl)
+        self.alertId = try container.decodeIfPresent(String.self, forKey: .alertId)
         let stringUnitOfMeasure = try container.decode(String.self, forKey: .unitOfMeasure)
         
         switch stringUnitOfMeasure {
@@ -84,6 +88,7 @@ struct Ingredient: Codable {
         try container.encode(self.quantity, forKey: .quantity)
         try container.encode(self.expiringDate, forKey: .expiringDate)
         try container.encodeIfPresent(self.photoUrl, forKey: .photoUrl)
+        try container.encodeIfPresent(self.alertId, forKey: .alertId)
         
         switch self.unitOfMeasure {
         case .litres:

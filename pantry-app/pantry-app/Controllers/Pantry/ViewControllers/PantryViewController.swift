@@ -64,7 +64,7 @@ class PantryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.checkForPermission() { alertController in
+        NotificationManager.shared.checkForPermission() { alertController in
             self.present(alertController, animated: true)
         }
         setupUI()
@@ -142,4 +142,10 @@ extension PantryViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 3
     }
+}
+
+// MARK: - CRUD Operations
+
+extension PantryViewController {
+    override func collectionViewedi
 }

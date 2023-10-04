@@ -77,6 +77,10 @@ extension IngredientManager {
         if let photoUrl = ingredient.photoUrl {
             ingredientData["photo_url"] = photoUrl
         }
+        if let alertId = ingredient.alertId {
+            ingredientData["alert_id"] = alertId
+        }
+        
         switch ingredient.unitOfMeasure {
         case .litres:
             ingredientData["unit_of_measure"] = "litres"
@@ -97,12 +101,13 @@ extension IngredientManager {
             throw URLError(.badServerResponse)
         }
         
-        
         let name = data["name"] as? String
         let quantity = data["quantity"] as? Double
         let expiringDate = data["expiring_date"] as? Date
         let photoUrl = data["photo_url"] as? String
         let stringUnitOfMeasure = data["unit_of_measure"] as? String
+        let alertId = data["alert_id"] as? String
+        
         var unitOfMeasure: UnitOfMeasure
         switch stringUnitOfMeasure {
         case "litres":
@@ -115,7 +120,7 @@ extension IngredientManager {
             unitOfMeasure = .pieces
         }
         
-        return Ingredient(id: id, name: name ?? "", quantity: quantity ?? 0.0, expiringDate: expiringDate ?? Date(), photoUrl: photoUrl, unitOfMeasure: unitOfMeasure)
+        return Ingredient(id: id, name: name ?? "", quantity: quantity ?? 0.0, expiringDate: expiringDate ?? Date(), photoUrl: photoUrl, unitOfMeasure: unitOfMeasure, alertId: alertId)
     }
     
     func getIngredients(handler: @escaping ([Ingredient]) -> Void) {
