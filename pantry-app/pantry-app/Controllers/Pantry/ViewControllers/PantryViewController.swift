@@ -36,7 +36,6 @@ class PantryViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         
         viewModel.loadData { [weak self] in
-            print("aggiorno collection view")
             self?.ingredientsCollectionView.reloadData()
             
         }
