@@ -28,7 +28,6 @@ class NotificationManager {
             content.body = body
             content.sound = .default
             let calendar = Calendar.current
-            var expiringDateComponents = calendar.dateComponents([.hour, .minute], from: ingredient.expiringDate)
             guard let dayBeforeExpiringDate = calendar.date(byAdding: .day, value: -1, to: ingredient.expiringDate) else {
                 print("Error in making dayBeforeExpiringDate")
                 return ""
@@ -55,6 +54,10 @@ class NotificationManager {
             return identifier
         }
         return ""
+    }
+    
+    func removeNotification(identifiedBy id: String) {
+        notificationCenter.removePendingNotificationRequests(withIdentifiers: [id])
     }
     
     func requestNotificationAuthorization() {

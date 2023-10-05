@@ -82,7 +82,7 @@ class PantryViewController: UIViewController {
         
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus.circle.fill"), style: .plain, target: self, action: #selector(didTapPlusButton))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.clockwise.circle.fill"), style: .plain, target: self, action: #selector(didTapRefreshButton))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(didTapEditButton))
     }
     
     // MARK: - UI Action
@@ -91,15 +91,25 @@ class PantryViewController: UIViewController {
         delegate?.pantryViewControllerDidPresent()
     }
     
-    @objc private func didTapRefreshButton() {
-        ingredientsCollectionView.reloadData()
+    @objc private func didTapEditButton(_ sender: UIBarButtonItem) {
+        if isEditing {
+            sender.title = "Edit"
+        } else {
+            sender.title = "Done"
+        }
+        setEditing(!isEditing, animated: true)
+        ingredientsCollectionView.indexPathsForVisibleItems.forEach { indexPath in
+            let cell = ingredientsCollectionView.cellForItem(at: indexPath) as! PantryCollectionViewCell
+            cell.isEditing = isEditing
+        }
     }
     
     func add(new ingredient: Ingredient) {
-        viewModel.add(new: ingredient) { alertController in
+        viewModel.add(new: ingredient, updateCollection: {
+            DispatchQueue.main.async { self.ingredientsCollectionView.reloadData() }
+        }) { alertController in
             self.present(alertController, animated: true)
         }
-        ingredientsCollectionView.reloadData()
     }
 
 }
@@ -116,7 +126,8 @@ extension PantryViewController: UICollectionViewDelegate, UICollectionViewDataSo
             fatalError("Failed to dequeue CustomCollectionViewCell in CollectionViewController")
         }
         
-        cell.configure(with: viewModel.getIngredient(at: indexPath.row).photoUrl ?? "")
+        cell.configure(by: PantryCollectionViewCellViewModel(ingredient: viewModel.getIngredient(at: indexPath.row)))
+        cell.delegate = self
         return cell
     }
     
@@ -144,8 +155,11 @@ extension PantryViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-// MARK: - CRUD Operations
-
-extension PantryViewController {
-    override func collectionViewedi
+extension PantryViewController: PantryCollectionViewCellDelegate {
+    func deleteCollectionItem(_ pantryCollectionViewCell: PantryCollectionViewCell) {
+        guard let indexPath = ingredientsCollectionView.indexPath(for: pantryCollectionViewCell) else { return }
+        viewModel.removeIngredient(at: indexPath.row) {
+            self.ingredientsCollectionView.reloadData()
+        }
+    }
 }
