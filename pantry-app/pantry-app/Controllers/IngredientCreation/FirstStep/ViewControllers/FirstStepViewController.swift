@@ -42,6 +42,20 @@ class FirstStepViewController: UIViewController {
         return textField
     }()
     
+    private let unitOfMeasuresPicker: UIPickerView = {
+        let pickerView = UIPickerView()
+        
+        return pickerView
+    }()
+    
+    private let unitOfMeasureTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Choose unit of measure to use"
+        textField.borderStyle = .roundedRect
+        
+        return textField
+    }()
+    
     private let quantityTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Enter quantity"
@@ -101,6 +115,7 @@ class FirstStepViewController: UIViewController {
     }
     
     private func setupUI() {
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark.circle.fill"), style: .plain, target: self, action: #selector(didTapCloseButton))
         continueButton.addTarget(self, action: #selector(continueButtonTapped), for: .touchUpInside)
         view.addSubview(mainVerticalStackView)
@@ -109,13 +124,17 @@ class FirstStepViewController: UIViewController {
         mainVerticalStackView.addArrangedSubview(textFieldsVerticalStackView)
         
         mainVerticalStackView.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(110)
-            make.bottom.equalTo(view)
-            make.right.equalTo(view).offset(-20)
-            make.left.equalTo(view).offset(20)
+            make.topMargin.equalTo(view.snp_topMargin).offset(10)
+            make.rightMargin.equalTo(view.snp_rightMargin).offset(-10)
+            make.leftMargin.equalTo(view.snp_leftMargin).offset(10)
         }
         
+        unitOfMeasuresPicker.delegate = self
+        unitOfMeasuresPicker.dataSource = self
+        unitOfMeasureTextField.inputView = unitOfMeasuresPicker
+        
         textFieldsVerticalStackView.addArrangedSubview(nameTextField)
+        textFieldsVerticalStackView.addArrangedSubview(unitOfMeasureTextField)
         textFieldsVerticalStackView.addArrangedSubview(quantityTextField)
         mainVerticalStackView.addArrangedSubview(UIView())
         mainVerticalStackView.addArrangedSubview(continueButton)
@@ -131,6 +150,7 @@ class FirstStepViewController: UIViewController {
         
         nameTextField.inputAccessoryView = toolbar
         quantityTextField.inputAccessoryView = toolbar
+        unitOfMeasureTextField.inputAccessoryView = toolbar
     }
     
     // MARK: - UI Action
@@ -159,8 +179,20 @@ extension FirstStepViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
         if textField === nameTextField {
             viewModel.ingredient.name = textField.text ?? ""
-        } else {
+        } else if textField === quantityTextField {
             viewModel.ingredient.quantity = Double(textField.text ?? "") ?? 0.0
+        } else {
+            switch textField.text {
+            case "litres":
+                viewModel.ingredient.unitOfMeasure = .litres
+            case "kilograms":
+                viewModel.ingredient.unitOfMeasure = .kilograms
+            case "grams":
+                viewModel.ingredient.unitOfMeasure = .grams
+            default:
+                viewModel.ingredient.unitOfMeasure = .pieces
+            }
+            
         }
         if nameTextField.text != "" && quantityTextField.text != "" {
             continueButton.backgroundColor = .systemBlue
@@ -170,4 +202,24 @@ extension FirstStepViewController: UITextFieldDelegate {
             continueButton.isEnabled = false
         }
     }
+}
+
+extension FirstStepViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return viewModel.unitsOfMeasure.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return viewModel.unitsOfMeasure[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        unitOfMeasureTextField.text = viewModel.unitsOfMeasure[row]
+        textFieldDidEndEditing(unitOfMeasureTextField, reason: .committed)
+    }
+    
 }

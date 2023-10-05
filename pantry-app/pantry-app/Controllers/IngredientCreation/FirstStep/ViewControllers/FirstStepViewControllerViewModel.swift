@@ -9,6 +9,7 @@ import UIKit
 
 class FirstStepViewControllerViewModel {
     var ingredient: Ingredient
+    let unitsOfMeasure = ["litres", "kilograms", "grams", "pieces"]
     
     init() {
         self.ingredient = Ingredient()

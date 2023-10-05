@@ -29,7 +29,6 @@ class PantryCollectionViewCell: UICollectionViewCell {
     
     var isEditing: Bool = false {
         didSet {
-            print("yo")
             deleteButton.isHidden = !isEditing
         }
     }
@@ -52,7 +51,7 @@ class PantryCollectionViewCell: UICollectionViewCell {
         label.layer.masksToBounds = true
         label.layer.borderColor = UIColor.white.cgColor
         label.layer.borderWidth = 1.0
-        label.backgroundColor = UIColor.white.withAlphaComponent(0.6)
+        label.backgroundColor = UIColor.systemBackground.withAlphaComponent(0.6)
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 16, weight: .medium)
         

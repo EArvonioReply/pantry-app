@@ -44,7 +44,7 @@ class NotificationManager {
                     print("Error " + error.debugDescription)
                     return
                 } else {
-                    print("tutto ok")
+                    // print("tutto ok")
                 }
             }
             let alertController = UIAlertController(title: "Notification Scheduled", message: "You will be reminded of the product expiration on \(self.formattedDate(date: dayBeforeExpiringDate)) at \(hour):\(minute)", preferredStyle: .alert)
