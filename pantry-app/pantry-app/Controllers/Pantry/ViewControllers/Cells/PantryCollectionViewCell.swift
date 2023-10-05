@@ -9,6 +9,10 @@ import UIKit
 import SnapKit
 import Kingfisher
 
+protocol PantryCollectionViewCellDelegate: AnyObject {
+    func deleteCollectionItem(_ pantryCollectionViewCell: PantryCollectionViewCell)
+}
+
 // MARK: - PantryCollectionViewCellViewModel
 
 struct PantryCollectionViewCellViewModel {
@@ -20,7 +24,15 @@ struct PantryCollectionViewCellViewModel {
 class PantryCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "PantryCollectionViewCell"
+    weak var delegate: PantryCollectionViewCellDelegate?
     var viewModel: PantryCollectionViewCellViewModel!
+    
+    var isEditing: Bool = false {
+        didSet {
+            print("yo")
+            deleteButton.isHidden = !isEditing
+        }
+    }
     
     // MARK: - UI Components
     
@@ -47,6 +59,18 @@ class PantryCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    private let deleteButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "trash.circle.fill"), for: .normal)
+        button.backgroundColor = UIColor.link.withAlphaComponent(0.3)
+        button.layer.cornerRadius = 20
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
+        button.isHidden = true
+        
+        return button
+    }()
+    
     // MARK: - PantryCollectionViewCell Configuration Methods
     
     public func configure(by viewModel: PantryCollectionViewCellViewModel) {
@@ -58,7 +82,10 @@ class PantryCollectionViewCell: UICollectionViewCell {
     private func setupUI() {
         self.addSubview(myImageView)
         self.addSubview(nameLabel)
+        self.addSubview(deleteButton)
+        
         nameLabel.text = viewModel.ingredient.name
+        deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
         myImageView.translatesAutoresizingMaskIntoConstraints = false
         myImageView.layer.cornerRadius = 10.0
         myImageView.snp.makeConstraints { make in
@@ -69,6 +96,20 @@ class PantryCollectionViewCell: UICollectionViewCell {
             make.bottomMargin.equalTo(self.snp_bottomMargin).offset(-10)
             make.width.equalTo(self.snp.width).offset(-20)
         }
+        deleteButton.snp.makeConstraints { make in
+            make.rightMargin.equalTo(self.snp_rightMargin).offset(-10)
+            make.topMargin.equalTo(self.snp_topMargin).offset(10)
+//            make.width.equalTo(45)
+//            make.height.equalTo(45)
+            make.leftMargin.equalTo(self.snp_rightMargin).offset(-30)
+            make.bottomMargin.equalTo(self.snp_topMargin).offset(30)
+        }
+    }
+    
+    // MARK: - UI Action
+    
+    @objc func deleteButtonTapped() {
+        delegate?.deleteCollectionItem(self)
     }
     
     // MARK: - UICollectionViewCell Life Cycle

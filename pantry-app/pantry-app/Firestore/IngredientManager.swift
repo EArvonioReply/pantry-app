@@ -20,17 +20,17 @@ class IngredientManager {
     
     
     // MARK: - Firestore Encoder and Decoder
-//    private let encoder: Firestore.Encoder = {
-//        let encoder = Firestore.Encoder()
-//        encoder.keyEncodingStrategy = .convertToSnakeCase
-//        return encoder
-//    }()
+    //    private let encoder: Firestore.Encoder = {
+    //        let encoder = Firestore.Encoder()
+    //        encoder.keyEncodingStrategy = .convertToSnakeCase
+    //        return encoder
+    //    }()
     
-//    private let decoder: Firestore.Decoder = {
-//        let decoder = Firestore.Decoder()
-//        decoder.keyDecodingStrategy = .convertFromSnakeCase
-//        return decoder
-//    }()
+    //    private let decoder: Firestore.Decoder = {
+    //        let decoder = Firestore.Decoder()
+    //        decoder.keyDecodingStrategy = .convertFromSnakeCase
+    //        return decoder
+    //    }()
     
     // MARK: - IngredientManager Init Method
     
@@ -55,6 +55,18 @@ extension IngredientManager {
         
         try ingredientDocument(identifiedBy: documentReference.documentID).setData(from: ingredientToPass, encoder: encoder)
         handler(ingredientToPass)
+    }
+    
+    func removeIngredient(_ ingredient: Ingredient) {
+        guard let ingredientId = ingredient.id else {return}
+        
+        ingredientCollection.document(ingredientId).delete() { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document successfully removed!")
+            }
+        }
     }
     
     func getIngredient(ingredientID: String) async throws -> Ingredient {
@@ -94,6 +106,7 @@ extension IngredientManager {
         try await ingredientCollection.addDocument(data: ingredientData)
         
     }
+    
     
     func getIngredientDict(ingredientID: String) async throws -> Ingredient {
         let snapshot = try await ingredientDocument(identifiedBy: ingredientID).getDocument()

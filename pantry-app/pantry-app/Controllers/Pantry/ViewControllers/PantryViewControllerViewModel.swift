@@ -30,18 +30,31 @@ class PantryViewControllerViewModel {
         return ingredients[position]
     }
     
-    func add(new ingredient: Ingredient, handler: @escaping (UIAlertController) -> Void) {
+    func add(new ingredient: Ingredient, updateCollection: @escaping () -> Void, alertHandler: @escaping (UIAlertController) -> Void) {
         Task {
             do {
+                let calendar = Calendar.current
                 var alertedIngredient = ingredient
-                alertedIngredient.alertId = NotificationManager.shared.setNotification(ingredient: ingredient, handleNotification: handler)
+                if let tomorrow = calendar.date(byAdding: .hour, value: 24, to: Date()) {
+                    if ingredient.expiringDate > tomorrow {
+                        alertedIngredient.alertId = NotificationManager.shared.setNotification(ingredient: ingredient, handleNotification: alertHandler)
+                    }
+                }
                 try await IngredientManager.shared.saveIngredient(alertedIngredient) { ingredient in
                     ingredients.append(ingredient)
+                    updateCollection()
                 }
             } catch {
                 print("error in saving ingredient to the db: \(error)")
             }
         }
+    }
+    
+    func removeIngredient(at indexPath: Int, updateCollection: @escaping () -> Void) {
+        let ingredientToRemove = ingredients.remove(at: indexPath)
+        updateCollection()
+        NotificationManager.shared.removeNotification(identifiedBy: ingredientToRemove.alertId ?? "")
+        IngredientManager.shared.removeIngredient(ingredientToRemove)
     }
     
 }
