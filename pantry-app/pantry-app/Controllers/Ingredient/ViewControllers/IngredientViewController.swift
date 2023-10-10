@@ -37,7 +37,7 @@ class IngredientViewController: UIViewController {
     
     private let ingredientImage: UIImageView = {
         let ingredientImage = UIImageView()
-        ingredientImage.image = UIImage(systemName: "fork.knife.circle.fill")
+        ingredientImage.image = .Images.ingredientPlaceholder
         ingredientImage.contentMode = .scaleAspectFit
         ingredientImage.layer.cornerRadius = 10
         
@@ -98,7 +98,7 @@ class IngredientViewController: UIViewController {
         nameLabel.text = viewModel.name
         quantityLabel.text = "\(viewModel.quantity) \(viewModel.unitOfMeasure)"
         expiringDateLabel.text = "Expiring date is \(viewModel.getFormattedDate())"
-        ingredientImage.kf.setImage(with: URL(string: viewModel.photoUrl ?? ""), placeholder: UIImage(systemName: "fork.knife.circle.fill")!)
+        ingredientImage.kf.setImage(with: URL(string: viewModel.photoUrl ?? ""), placeholder: UIImage.Images.ingredientPlaceholder)
         ingredientImage.snp.makeConstraints { make in
             make.height.equalTo(view.frame.width - 20)
         }

@@ -38,7 +38,6 @@ class PantryCollectionViewCell: UICollectionViewCell {
     private let myImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.tintColor = .systemOrange
         imageView.clipsToBounds = true
         imageView.layer.borderColor = UIColor.black.cgColor
         imageView.layer.borderWidth = 1
@@ -60,7 +59,7 @@ class PantryCollectionViewCell: UICollectionViewCell {
     
     private let deleteButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "trash.circle.fill"), for: .normal)
+        button.setImage(.Images.trash, for: .normal)
         button.backgroundColor = UIColor.link.withAlphaComponent(0.3)
         button.layer.cornerRadius = 20
         button.contentVerticalAlignment = .fill
@@ -74,7 +73,7 @@ class PantryCollectionViewCell: UICollectionViewCell {
     
     public func configure(by viewModel: PantryCollectionViewCellViewModel) {
         self.viewModel = viewModel
-        myImageView.kf.setImage(with: URL(string: viewModel.ingredient.photoUrl ?? ""), placeholder: UIImage(systemName: "fork.knife.circle.fill")!)
+        myImageView.kf.setImage(with: URL(string: viewModel.ingredient.photoUrl ?? ""), placeholder: UIImage.Images.ingredientPlaceholder)
         setupUI()
     }
     

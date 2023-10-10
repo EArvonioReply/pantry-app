@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5216808D2ACD6D9800A7D7C8 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5216808C2ACD6D9800A7D7C8 /* NotificationManager.swift */; };
+		5221EF7D2AD556A70031FFC6 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5221EF7C2AD556A70031FFC6 /* UIImage+.swift */; };
 		52874E912AC6DFF0001248B4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52874E902AC6DFF0001248B4 /* GoogleService-Info.plist */; };
 		52874E942AC859F3001248B4 /* IngredientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52874E932AC859F3001248B4 /* IngredientManager.swift */; };
 		52D782122AC1CF4D00926A13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D782112AC1CF4D00926A13 /* AppDelegate.swift */; };
@@ -55,6 +56,7 @@
 /* Begin PBXFileReference section */
 		37D4221A27750E018DE76011 /* Pods-pantry-app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pantry-app.release.xcconfig"; path = "Target Support Files/Pods-pantry-app/Pods-pantry-app.release.xcconfig"; sourceTree = "<group>"; };
 		5216808C2ACD6D9800A7D7C8 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		5221EF7C2AD556A70031FFC6 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		52874E902AC6DFF0001248B4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		52874E932AC859F3001248B4 /* IngredientManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientManager.swift; sourceTree = "<group>"; };
 		52D7820E2AC1CF4D00926A13 /* pantry-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "pantry-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -112,6 +114,22 @@
 			path = Notification;
 			sourceTree = "<group>";
 		};
+		5221EF7A2AD556890031FFC6 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				5221EF7B2AD556940031FFC6 /* Extensions */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		5221EF7B2AD556940031FFC6 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5221EF7C2AD556A70031FFC6 /* UIImage+.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		52874E922AC859D8001248B4 /* Firestore */ = {
 			isa = PBXGroup;
 			children = (
@@ -141,6 +159,7 @@
 		52D782102AC1CF4D00926A13 /* pantry-app */ = {
 			isa = PBXGroup;
 			children = (
+				5221EF7A2AD556890031FFC6 /* Utils */,
 				5216808B2ACD6D8300A7D7C8 /* Notification */,
 				52874E922AC859D8001248B4 /* Firestore */,
 				52D782392AC1F0E700926A13 /* Pushed */,
@@ -488,6 +507,7 @@
 				52D782302AC1EC9000926A13 /* Coordinator.swift in Sources */,
 				52D782512AC2D35A00926A13 /* Ingredient.swift in Sources */,
 				52D7823B2AC1F0F600926A13 /* BaseCoordinator.swift in Sources */,
+				5221EF7D2AD556A70031FFC6 /* UIImage+.swift in Sources */,
 				52D7822E2AC1DBFB00926A13 /* PantryCollectionViewCell.swift in Sources */,
 				52D7825D2AC2E49500926A13 /* IngredientCoordinator.swift in Sources */,
 				52D782662AC336AB00926A13 /* IngredientCreationCoordinator.swift in Sources */,
