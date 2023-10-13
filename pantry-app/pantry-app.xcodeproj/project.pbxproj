@@ -9,8 +9,16 @@
 /* Begin PBXBuildFile section */
 		5216808D2ACD6D9800A7D7C8 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5216808C2ACD6D9800A7D7C8 /* NotificationManager.swift */; };
 		5221EF7D2AD556A70031FFC6 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5221EF7C2AD556A70031FFC6 /* UIImage+.swift */; };
+		5221EF802AD56AD00031FFC6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5221EF7F2AD56AD00031FFC6 /* Constants.swift */; };
+		5221EF822AD58BC00031FFC6 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5221EF812AD58BC00031FFC6 /* Recipe.swift */; };
+		5221EF842AD594740031FFC6 /* APIHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5221EF832AD594740031FFC6 /* APIHandler.swift */; };
+		5221EF862AD595170031FFC6 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5221EF852AD595170031FFC6 /* APIError.swift */; };
+		5221EF882AD595AD0031FFC6 /* APIResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5221EF872AD595AD0031FFC6 /* APIResponseHandler.swift */; };
+		5221EF8B2AD6AA4A0031FFC6 /* IngredientCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5221EF8A2AD6AA4A0031FFC6 /* IngredientCollectionViewCell.swift */; };
+		5221EF8D2AD988A40031FFC6 /* UIAlertController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5221EF8C2AD988A40031FFC6 /* UIAlertController+.swift */; };
+		5221EF8F2AD98F5E0031FFC6 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5221EF8E2AD98F5E0031FFC6 /* UIViewController+.swift */; };
 		52874E912AC6DFF0001248B4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52874E902AC6DFF0001248B4 /* GoogleService-Info.plist */; };
-		52874E942AC859F3001248B4 /* IngredientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52874E932AC859F3001248B4 /* IngredientManager.swift */; };
+		52874E942AC859F3001248B4 /* IngredientHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52874E932AC859F3001248B4 /* IngredientHandler.swift */; };
 		52D782122AC1CF4D00926A13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D782112AC1CF4D00926A13 /* AppDelegate.swift */; };
 		52D782142AC1CF4D00926A13 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D782132AC1CF4D00926A13 /* SceneDelegate.swift */; };
 		52D782162AC1CF4D00926A13 /* PantryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D782152AC1CF4D00926A13 /* PantryViewController.swift */; };
@@ -57,8 +65,16 @@
 		37D4221A27750E018DE76011 /* Pods-pantry-app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pantry-app.release.xcconfig"; path = "Target Support Files/Pods-pantry-app/Pods-pantry-app.release.xcconfig"; sourceTree = "<group>"; };
 		5216808C2ACD6D9800A7D7C8 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		5221EF7C2AD556A70031FFC6 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
+		5221EF7F2AD56AD00031FFC6 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		5221EF812AD58BC00031FFC6 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
+		5221EF832AD594740031FFC6 /* APIHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIHandler.swift; sourceTree = "<group>"; };
+		5221EF852AD595170031FFC6 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		5221EF872AD595AD0031FFC6 /* APIResponseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponseHandler.swift; sourceTree = "<group>"; };
+		5221EF8A2AD6AA4A0031FFC6 /* IngredientCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientCollectionViewCell.swift; sourceTree = "<group>"; };
+		5221EF8C2AD988A40031FFC6 /* UIAlertController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+.swift"; sourceTree = "<group>"; };
+		5221EF8E2AD98F5E0031FFC6 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		52874E902AC6DFF0001248B4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		52874E932AC859F3001248B4 /* IngredientManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientManager.swift; sourceTree = "<group>"; };
+		52874E932AC859F3001248B4 /* IngredientHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientHandler.swift; sourceTree = "<group>"; };
 		52D7820E2AC1CF4D00926A13 /* pantry-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "pantry-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		52D782112AC1CF4D00926A13 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		52D782132AC1CF4D00926A13 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -118,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				5221EF7B2AD556940031FFC6 /* Extensions */,
+				5221EF7F2AD56AD00031FFC6 /* Constants.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -126,14 +143,34 @@
 			isa = PBXGroup;
 			children = (
 				5221EF7C2AD556A70031FFC6 /* UIImage+.swift */,
+				5221EF8C2AD988A40031FFC6 /* UIAlertController+.swift */,
+				5221EF8E2AD98F5E0031FFC6 /* UIViewController+.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		5221EF7E2AD568410031FFC6 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				5221EF832AD594740031FFC6 /* APIHandler.swift */,
+				5221EF852AD595170031FFC6 /* APIError.swift */,
+				5221EF872AD595AD0031FFC6 /* APIResponseHandler.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		5221EF892AD6AA270031FFC6 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				5221EF8A2AD6AA4A0031FFC6 /* IngredientCollectionViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		52874E922AC859D8001248B4 /* Firestore */ = {
 			isa = PBXGroup;
 			children = (
-				52874E932AC859F3001248B4 /* IngredientManager.swift */,
+				52874E932AC859F3001248B4 /* IngredientHandler.swift */,
 			);
 			path = Firestore;
 			sourceTree = "<group>";
@@ -162,10 +199,11 @@
 				5221EF7A2AD556890031FFC6 /* Utils */,
 				5216808B2ACD6D8300A7D7C8 /* Notification */,
 				52874E922AC859D8001248B4 /* Firestore */,
-				52D782392AC1F0E700926A13 /* Pushed */,
+				5221EF7E2AD568410031FFC6 /* API */,
 				52D782252AC1DA2C00926A13 /* Models */,
 				52D782292AC1DB4400926A13 /* Controllers */,
 				52D7822A2AC1DB5200926A13 /* Coordinator */,
+				52D782392AC1F0E700926A13 /* Pushed */,
 				52D782282AC1DA6C00926A13 /* Supporting */,
 			);
 			path = "pantry-app";
@@ -175,6 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				52D782502AC2D35A00926A13 /* Ingredient.swift */,
+				5221EF812AD58BC00031FFC6 /* Recipe.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -278,6 +317,7 @@
 			children = (
 				52D782582AC2E3FC00926A13 /* IngredientViewController.swift */,
 				52D7825A2AC2E44800926A13 /* IngredientViewControllerViewModel.swift */,
+				5221EF892AD6AA270031FFC6 /* Cells */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -497,10 +537,15 @@
 				52D7825B2AC2E44800926A13 /* IngredientViewControllerViewModel.swift in Sources */,
 				52D782622AC3366500926A13 /* FirstStepViewControllerViewModel.swift in Sources */,
 				5216808D2ACD6D9800A7D7C8 /* NotificationManager.swift in Sources */,
+				5221EF802AD56AD00031FFC6 /* Constants.swift in Sources */,
+				5221EF8F2AD98F5E0031FFC6 /* UIViewController+.swift in Sources */,
 				52F17EC92AC56A2B00F512D0 /* FirstStepCoordinator.swift in Sources */,
 				52D782162AC1CF4D00926A13 /* PantryViewController.swift in Sources */,
-				52874E942AC859F3001248B4 /* IngredientManager.swift in Sources */,
+				5221EF882AD595AD0031FFC6 /* APIResponseHandler.swift in Sources */,
+				52874E942AC859F3001248B4 /* IngredientHandler.swift in Sources */,
+				5221EF842AD594740031FFC6 /* APIHandler.swift in Sources */,
 				52D782122AC1CF4D00926A13 /* AppDelegate.swift in Sources */,
+				5221EF8B2AD6AA4A0031FFC6 /* IngredientCollectionViewCell.swift in Sources */,
 				52D782342AC1ED3400926A13 /* AppRootCoordinator.swift in Sources */,
 				52D782382AC1EDCD00926A13 /* NavigationCoordinator.swift in Sources */,
 				52D782362AC1ED9500926A13 /* PantryCoordinator.swift in Sources */,
@@ -510,9 +555,12 @@
 				5221EF7D2AD556A70031FFC6 /* UIImage+.swift in Sources */,
 				52D7822E2AC1DBFB00926A13 /* PantryCollectionViewCell.swift in Sources */,
 				52D7825D2AC2E49500926A13 /* IngredientCoordinator.swift in Sources */,
+				5221EF8D2AD988A40031FFC6 /* UIAlertController+.swift in Sources */,
 				52D782662AC336AB00926A13 /* IngredientCreationCoordinator.swift in Sources */,
 				52F17ECF2AC5704C00F512D0 /* SecondStepCoordinator.swift in Sources */,
 				52D782642AC3368500926A13 /* FirstStepViewController.swift in Sources */,
+				5221EF862AD595170031FFC6 /* APIError.swift in Sources */,
+				5221EF822AD58BC00031FFC6 /* Recipe.swift in Sources */,
 				52D782592AC2E3FC00926A13 /* IngredientViewController.swift in Sources */,
 				52D782142AC1CF4D00926A13 /* SceneDelegate.swift in Sources */,
 			);

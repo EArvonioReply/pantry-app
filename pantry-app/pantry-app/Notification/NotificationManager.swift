@@ -16,7 +16,7 @@ class NotificationManager {
     
     // MARK: - Local notificiation management
     
-    func setNotification(ingredient: Ingredient, handleNotification: @escaping (UIAlertController) -> Void) -> String {
+    func setNotification(ingredient: Ingredient, handleNotification: @escaping ((String, Int, Int)) -> Void) -> String {
         if defaults.bool(forKey: "notificationsPermissionGranted") {
             let identifier = UUID().uuidString
             let title = "Expiration alert"
@@ -47,9 +47,8 @@ class NotificationManager {
                     // print("tutto ok")
                 }
             }
-            let alertController = UIAlertController(title: "Notification Scheduled", message: "You will be reminded of the product expiration on \(self.formattedDate(date: dayBeforeExpiringDate)) at \(hour):\(minute)", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "Ok, thanks!", style: .default, handler: { (_) in}))
-            handleNotification(alertController)
+            
+            handleNotification((self.formattedDate(date: dayBeforeExpiringDate), hour, minute))
             
             return identifier
         }

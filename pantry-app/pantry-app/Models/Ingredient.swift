@@ -11,7 +11,7 @@ import FirebaseFirestoreSwift
 
 // MARK: - UnitOfMeasure
 
-enum UnitOfMeasure: Decodable {
+enum UnitOfMeasure: String {
     case litres
     case kilograms
     case grams
@@ -69,16 +69,17 @@ struct Ingredient: Codable {
         self.alertId = try container.decodeIfPresent(String.self, forKey: .alertId)
         let stringUnitOfMeasure = try container.decode(String.self, forKey: .unitOfMeasure)
         
-        switch stringUnitOfMeasure {
-        case "litres":
-            self.unitOfMeasure = .litres
-        case "kilograms":
-            self.unitOfMeasure = .kilograms
-        case "grams":
-            self.unitOfMeasure = .grams
-        default:
-            self.unitOfMeasure = .pieces
-        }
+        self.unitOfMeasure = UnitOfMeasure(rawValue: stringUnitOfMeasure) ?? .pieces
+//        switch stringUnitOfMeasure {
+//        case "litres":
+//            self.unitOfMeasure = .litres
+//        case "kilograms":
+//            self.unitOfMeasure = .kilograms
+//        case "grams":
+//            self.unitOfMeasure = .grams
+//        default:
+//            self.unitOfMeasure = .pieces
+//        }
     }
     
     func encode(to encoder: Encoder) throws {
@@ -90,16 +91,18 @@ struct Ingredient: Codable {
         try container.encodeIfPresent(self.photoUrl, forKey: .photoUrl)
         try container.encodeIfPresent(self.alertId, forKey: .alertId)
         
-        switch self.unitOfMeasure {
-        case .litres:
-            try container.encode("litres", forKey: .unitOfMeasure)
-        case .kilograms:
-            try container.encode("kilograms", forKey: .unitOfMeasure)
-        case .grams:
-            try container.encode("grams", forKey: .unitOfMeasure)
-        case .pieces:
-            try container.encode("pieces", forKey: .unitOfMeasure)
-        }
+        try container.encode(self.unitOfMeasure.rawValue, forKey: .unitOfMeasure)
+        
+//        switch self.unitOfMeasure {
+//        case .litres:
+//            try container.encode("litres", forKey: .unitOfMeasure)
+//        case .kilograms:
+//            try container.encode("kilograms", forKey: .unitOfMeasure)
+//        case .grams:
+//            try container.encode("grams", forKey: .unitOfMeasure)
+//        case .pieces:
+//            try container.encode("pieces", forKey: .unitOfMeasure)
+//        }
         
     }
     

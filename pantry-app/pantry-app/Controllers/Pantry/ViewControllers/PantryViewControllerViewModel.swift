@@ -20,7 +20,7 @@ class PantryViewControllerViewModel {
     }
     
     func loadData(handler: @escaping () -> Void) {
-        IngredientManager.shared.getIngredients() { fetchedIngredients in
+        IngredientHandler.shared.getIngredients() { fetchedIngredients in
             self.ingredients = fetchedIngredients
             handler()
         }
@@ -30,7 +30,7 @@ class PantryViewControllerViewModel {
         return ingredients[position]
     }
     
-    func add(new ingredient: Ingredient, updateCollection: @escaping () -> Void, alertHandler: @escaping (UIAlertController) -> Void) {
+    func add(new ingredient: Ingredient, updateCollection: @escaping () -> Void, alertHandler: @escaping ((String, Int, Int)) -> Void) {
         Task {
             do {
                 let calendar = Calendar.current
@@ -40,7 +40,7 @@ class PantryViewControllerViewModel {
                         alertedIngredient.alertId = NotificationManager.shared.setNotification(ingredient: ingredient, handleNotification: alertHandler)
                     }
                 }
-                try await IngredientManager.shared.saveIngredient(alertedIngredient) { ingredient in
+                try await IngredientHandler.shared.saveIngredient(alertedIngredient) { ingredient in
                     ingredients.append(ingredient)
                     updateCollection()
                 }
@@ -54,7 +54,7 @@ class PantryViewControllerViewModel {
         let ingredientToRemove = ingredients.remove(at: indexPath)
         updateCollection()
         NotificationManager.shared.removeNotification(identifiedBy: ingredientToRemove.alertId ?? "")
-        IngredientManager.shared.removeIngredient(ingredientToRemove)
+        IngredientHandler.shared.removeIngredient(ingredientToRemove)
     }
     
 }

@@ -115,5 +115,6 @@ class PantryCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         self.myImageView.image = nil
+        self.nameLabel.text = ""
     }
 }
