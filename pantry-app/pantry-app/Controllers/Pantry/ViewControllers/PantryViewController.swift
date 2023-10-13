@@ -91,12 +91,12 @@ class PantryViewController: UIViewController {
     }
     
     @objc private func didTapEditButton(_ sender: UIBarButtonItem) {
-        if isEditing {
-            sender.title = "Edit"
-        } else {
-            sender.title = "Done"
-        }
         setEditing(!isEditing, animated: true)
+        if isEditing {
+            sender.title = "Done"
+        } else {
+            sender.title = "Edit"
+        }
         ingredientsCollectionView.indexPathsForVisibleItems.forEach { indexPath in
             let cell = ingredientsCollectionView.cellForItem(at: indexPath) as! PantryCollectionViewCell
             cell.isEditing = isEditing
@@ -106,7 +106,9 @@ class PantryViewController: UIViewController {
     func add(new ingredient: Ingredient) {
         viewModel.add(new: ingredient, updateCollection: {
             DispatchQueue.main.async { self.ingredientsCollectionView.reloadData() }
-        }) { alertController in
+        }) { (dayBeforeExpiringDate, hour, minute) in
+            let alertController = UIAlertController(title: "Notification Scheduled", message: "You will be reminded of the product expiration on \(dayBeforeExpiringDate) at \(hour):\(minute)", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Ok, thanks!", style: .default, handler: { (_) in}))
             self.present(alertController, animated: true)
         }
     }

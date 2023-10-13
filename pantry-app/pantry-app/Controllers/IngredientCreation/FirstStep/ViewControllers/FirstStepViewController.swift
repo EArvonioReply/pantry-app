@@ -31,6 +31,7 @@ class FirstStepViewController: UIViewController {
     private let hintLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 20)
+        
         return label
     }()
     
@@ -79,15 +80,16 @@ class FirstStepViewController: UIViewController {
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.spacing = 15
+        
         return stackView
     }()
     
     private let continueButton: UIButton = {
         let continueButton = UIButton()
+        continueButton.frame = CGRect(x: 100, y: 100, width: 200, height: 50)
         continueButton.setTitle("Continue", for: .normal)
         continueButton.backgroundColor = .systemGray
         continueButton.layer.cornerRadius = 18
-        continueButton.frame = CGRect(x: 100, y: 100, width: 200, height: 50)
         continueButton.isEnabled = false
         
         return continueButton
@@ -109,44 +111,46 @@ class FirstStepViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        
         nameTextField.delegate = self
         quantityTextField.delegate = self
+        unitOfMeasuresPicker.delegate = self
+        unitOfMeasuresPicker.dataSource = self
+        
         setupUI()
     }
     
     private func setupUI() {
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark.circle.fill"), style: .plain, target: self, action: #selector(didTapCloseButton))
         continueButton.addTarget(self, action: #selector(continueButtonTapped), for: .touchUpInside)
-        view.addSubview(mainVerticalStackView)
+        
         hintLabel.text = "Register a new ingredient"
-        mainVerticalStackView.addArrangedSubview(hintLabel)
-        mainVerticalStackView.addArrangedSubview(textFieldsVerticalStackView)
         
-        mainVerticalStackView.snp.makeConstraints { make in
-            make.topMargin.equalTo(view.snp_topMargin).offset(10)
-            make.rightMargin.equalTo(view.snp_rightMargin).offset(-10)
-            make.leftMargin.equalTo(view.snp_leftMargin).offset(10)
+        if viewModel.defaultValueRow < viewModel.unitsOfMeasure.count {
+            unitOfMeasureTextField.text = viewModel.unitsOfMeasure[viewModel.defaultValueRow]
+            unitOfMeasuresPicker.selectRow(viewModel.defaultValueRow, inComponent: 0, animated: true)
         }
-        
-        unitOfMeasuresPicker.delegate = self
-        unitOfMeasuresPicker.dataSource = self
         unitOfMeasureTextField.inputView = unitOfMeasuresPicker
         
         textFieldsVerticalStackView.addArrangedSubview(nameTextField)
         textFieldsVerticalStackView.addArrangedSubview(unitOfMeasureTextField)
         textFieldsVerticalStackView.addArrangedSubview(quantityTextField)
-        mainVerticalStackView.addArrangedSubview(UIView())
+        mainVerticalStackView.addArrangedSubview(hintLabel)
+        mainVerticalStackView.addArrangedSubview(textFieldsVerticalStackView)
         mainVerticalStackView.addArrangedSubview(continueButton)
-        mainVerticalStackView.addArrangedSubview(UIView())
         
-        // Create a UIToolbar with a "Done" button
-        let toolbar = UIToolbar()
-        toolbar.sizeToFit()
+        view.addSubview(mainVerticalStackView)
+        mainVerticalStackView.snp.makeConstraints { make in
+            make.topMargin.equalTo(view.snp_topMargin).offset(10)
+            make.rightMargin.equalTo(view.snp_rightMargin).inset(10)
+            make.leftMargin.equalTo(view.snp_leftMargin).offset(10)
+        }
         
-        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonTapped))
-        
-        toolbar.setItems([doneButton], animated: false)
+        addToolbar()
+    }
+    
+    private func addToolbar() {
+        let toolbar = createToolbar()
         
         nameTextField.inputAccessoryView = toolbar
         quantityTextField.inputAccessoryView = toolbar
@@ -155,25 +159,37 @@ class FirstStepViewController: UIViewController {
     
     // MARK: - UI Action
     
-    @objc func doneButtonTapped() {
-        view.endEditing(true)
-    }
-    
     @objc private func didTapCloseButton() {
         delegate?.cancelCreationProcess(self)
     }
     
     @objc private func continueButtonTapped() {
+        view.endEditing(true)
+        guard nameTextField.text != "" && quantityTextField.text != "" else {
+            UIAlertController.buildOkAlert(title: "You shall not pass", message: "You should fill all fields") { alertController in
+                self.present(alertController, animated: true)
+            }
+            return
+        }
         UIView.animate(withDuration: 0.1, animations: {
-            self.continueButton.layer.opacity = 0.7
+            self.continueButton.layer.opacity = Constants.buttonClickedOpacity
         }) { (_) in
             UIView.animate(withDuration: 0.1) {
-                self.continueButton.layer.opacity = 1
+                self.continueButton.layer.opacity = Constants.buttonAtRestOpacity
             }
         }
         delegate?.incrementCreationStep(self, didCreate: viewModel.ingredient)
     }
+    
+    // MARK: - Utility functions
+    
+    func checkContinuability() {
+        continueButton.isEnabled = viewModel.ingredient.name != "" && viewModel.ingredient.quantity != 0
+        continueButton.backgroundColor = continueButton.isEnabled ? .systemBlue : .systemGray
+    }
 }
+
+// MARK: - UITextFieldDelegate
 
 extension FirstStepViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
@@ -181,28 +197,12 @@ extension FirstStepViewController: UITextFieldDelegate {
             viewModel.ingredient.name = textField.text ?? ""
         } else if textField === quantityTextField {
             viewModel.ingredient.quantity = Double(textField.text ?? "") ?? 0.0
-        } else {
-            switch textField.text {
-            case "litres":
-                viewModel.ingredient.unitOfMeasure = .litres
-            case "kilograms":
-                viewModel.ingredient.unitOfMeasure = .kilograms
-            case "grams":
-                viewModel.ingredient.unitOfMeasure = .grams
-            default:
-                viewModel.ingredient.unitOfMeasure = .pieces
-            }
-            
         }
-        if nameTextField.text != "" && quantityTextField.text != "" {
-            continueButton.backgroundColor = .systemBlue
-            continueButton.isEnabled = true
-        } else {
-            continueButton.backgroundColor = .systemGray
-            continueButton.isEnabled = false
-        }
+        checkContinuability()
     }
 }
+
+// MARK: - UIPickerViewDelegate & UIPickerViewDataSource Extensions
 
 extension FirstStepViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -219,7 +219,8 @@ extension FirstStepViewController: UIPickerViewDelegate, UIPickerViewDataSource 
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         unitOfMeasureTextField.text = viewModel.unitsOfMeasure[row]
-        textFieldDidEndEditing(unitOfMeasureTextField, reason: .committed)
+        viewModel.ingredient.unitOfMeasure = UnitOfMeasure(rawValue: viewModel.unitsOfMeasure[row]) ?? .pieces
+        checkContinuability()
     }
     
 }

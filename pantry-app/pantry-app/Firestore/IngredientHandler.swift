@@ -11,10 +11,10 @@ import FirebaseFirestoreSwift
 
 // MARK: - IngredientManager
 
-class IngredientManager {
+class IngredientHandler {
     
     // MARK: - Shared Instance
-    static let shared: IngredientManager = IngredientManager()
+    static let shared: IngredientHandler = IngredientHandler()
     private let database = Firestore.firestore()
     private let ingredientCollection = Firestore.firestore().collection("ingredients")
     
@@ -43,7 +43,7 @@ class IngredientManager {
 
 // MARK: - Create and Fetch requests with encoder and decoder
 
-extension IngredientManager {
+extension IngredientHandler {
     
     func saveIngredient(_ ingredient: Ingredient, handler: (Ingredient) -> Void ) async throws {
         let encoder = Firestore.Encoder()
@@ -79,7 +79,7 @@ extension IngredientManager {
 
 // MARK: - Create and Fetch requests with dictionaries
 
-extension IngredientManager {
+extension IngredientHandler {
     func createNewIngredientDict(_ ingredient: Ingredient) async throws {
         var ingredientData: [String:Any] = [
             "name": ingredient.name,

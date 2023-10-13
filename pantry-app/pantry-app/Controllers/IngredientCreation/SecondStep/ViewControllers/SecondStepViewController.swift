@@ -7,14 +7,14 @@
 
 import UIKit
 
-// MARK: - FirstStepViewControllerDelegate
+// MARK: - SecondStepViewControllerDelegate
 
 protocol SecondStepViewControllerDelegate: AnyObject {
     func incrementCreationStep(_ viewController: UIViewController, didCreate ingredient: Ingredient)
     func cancelCreationProcess(_ viewController: UIViewController)
 }
 
-// MARK: - FirstStepViewController
+// MARK: - SecondStepViewController
 
 class SecondStepViewController: UIViewController {
     
@@ -31,6 +31,7 @@ class SecondStepViewController: UIViewController {
     private let hintLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 20)
+        
         return label
     }()
     
@@ -39,6 +40,7 @@ class SecondStepViewController: UIViewController {
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.setContentHuggingPriority(.defaultLow, for: .horizontal)
         label.numberOfLines = 0
+        
         return label
     }()
     
@@ -54,6 +56,7 @@ class SecondStepViewController: UIViewController {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
+        
         return stackView
     }()
     
@@ -71,15 +74,16 @@ class SecondStepViewController: UIViewController {
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.spacing = 15
+        
         return stackView
     }()
     
     private let createButton: UIButton = {
         let createButton = UIButton()
+        createButton.frame = CGRect(x: 100, y: 100, width: 200, height: 50)
         createButton.setTitle("Create", for: .normal)
         createButton.backgroundColor = .systemGray
         createButton.layer.cornerRadius = 18
-        createButton.frame = CGRect(x: 100, y: 100, width: 200, height: 50)
         createButton.isEnabled = false
         
         return createButton
@@ -107,42 +111,27 @@ class SecondStepViewController: UIViewController {
     
     private func setupUI() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark.circle.fill"), style: .plain, target: self, action: #selector(didTapCloseButton))
-        datePicker.addTarget(self, action: #selector(datePickerValueChanged), for: .editingDidEnd)
         createButton.addTarget(self, action: #selector(createButtonTapped), for: .touchUpInside)
-        view.addSubview(mainVerticalStackView)
+        datePicker.addTarget(self, action: #selector(datePickerValueChanged), for: .editingDidEnd)
+        
         hintLabel.text = "Final step"
         dateLabel.text = "Expiring date for \(viewModel.ingredient.name):"
-        mainVerticalStackView.addArrangedSubview(hintLabel)
-        //mainVerticalStackView.addArrangedSubview(textFieldsVerticalStackView)
-        mainVerticalStackView.addArrangedSubview(horizontalStackView)
-        
-        mainVerticalStackView.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(110)
-            make.bottom.equalTo(view)
-            make.right.equalTo(view).offset(-20)
-            make.left.equalTo(view).offset(20)
-        }
         
         horizontalStackView.addArrangedSubview(dateLabel)
         horizontalStackView.addArrangedSubview(datePicker)
-        
-        mainVerticalStackView.addArrangedSubview(UIView())
+        mainVerticalStackView.addArrangedSubview(hintLabel)
+        mainVerticalStackView.addArrangedSubview(horizontalStackView)
         mainVerticalStackView.addArrangedSubview(createButton)
-        mainVerticalStackView.addArrangedSubview(UIView())
         
-        let toolbar = UIToolbar()
-        toolbar.sizeToFit()
-        
-        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonTapped))
-        toolbar.setItems([doneButton], animated: false)
-        
+        view.addSubview(mainVerticalStackView)
+        mainVerticalStackView.snp.makeConstraints { make in
+            make.top.equalTo(view).offset(110)
+            make.right.equalTo(view).inset(20)
+            make.left.equalTo(view).offset(20)
+        }
     }
     
     // MARK: - UI Action
-    
-    @objc func doneButtonTapped() {
-        view.endEditing(true)
-    }
     
     @objc private func didTapCloseButton() {
         delegate?.cancelCreationProcess(self)
@@ -160,10 +149,10 @@ class SecondStepViewController: UIViewController {
     
     @objc func createButtonTapped() {
         UIView.animate(withDuration: 0.1, animations: {
-            self.createButton.layer.opacity = 0.7
+            self.createButton.layer.opacity = Constants.buttonClickedOpacity
         }) { (_) in
             UIView.animate(withDuration: 0.1) {
-                self.createButton.layer.opacity = 1
+                self.createButton.layer.opacity = Constants.buttonAtRestOpacity
             }
         }
         
